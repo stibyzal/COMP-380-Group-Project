@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class RoomChoice{
 
-    private String[] roomTypes = {"Single room", "Twin room", "Executive room", "Suit"};
+    private String[] roomTypes = {"Single room", "Twin room", "Executive room", "Suite"};
     private String room;
     private String choice;
 
