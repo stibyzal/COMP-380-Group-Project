@@ -1,6 +1,6 @@
 package com.example.projcomp380;
 
-import com.sun.tools.javac.Main;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -92,6 +92,12 @@ public class MainWindowController {
         // placeholder, working on second window
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("second-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
+
+        SecondWindowController secondWindowController = fxmlLoader.getController();
+
+        // pass and display date input to second window
+        secondWindowController.displayDates(checkInDate, checkOutDate);
+
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
