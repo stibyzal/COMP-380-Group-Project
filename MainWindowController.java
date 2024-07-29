@@ -1,97 +1,93 @@
-package com.example.projcomp380;
+package com.example.hotelcalifornia;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import java.time.LocalDate;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.time.LocalDate;
 
 public class MainWindowController {
 
     @FXML
-    private Label groupTitle; // Hotel Name
+    private DatePicker checkInDatePicker;
 
     @FXML
-    private Label checkInLabel; // Check-In Label
+    private DatePicker checkOutDatePicker;
 
     @FXML
-    private Label checkOutLabel; // Check-Out Label
+    private TextField numOfGuestsField;
 
     @FXML
-    private Label numOfGuestsLabel; // Number of Guests Label
+    private Button buttonSearch;
 
-    @FXML
-    private Button buttonSearch; // Search Button
-
-    @FXML
-    private DatePicker checkInDatePicker; // Check-In Picker
-
-    @FXML
-    private DatePicker checkOutDatePicker; // Check-Out Picker
-
-    @FXML
-    private TextField numOfGuestsField; // Number of Guests TextField
-
-    @FXML
-    protected void getCheckInDate() {
-        LocalDate selectedDate = checkInDatePicker.getValue();
-    }
-
-    @FXML
-    protected void getCheckOutDate() {
-        LocalDate selectedDate = checkOutDatePicker.getValue();
-
-    }
-
-
-    // method to check for error, displays alert box
+    // Method to check for error, displays alert box
     private void displayErrorBox(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
 
-}
+    @FXML
+    protected void getCheckInDate() {
+        // Method implementation (if needed)
+        System.out.println("Check-In Date: " + checkInDatePicker.getValue());
+    }
 
-    @FXML  //  method search parameters
+    @FXML
+    protected void getCheckOutDate() {
+        // Method implementation (if needed)
+        System.out.println("Check-Out Date: " + checkOutDatePicker.getValue());
+    }
+
+    @FXML
     protected void searchRoomAvailability() {
-
-        // get input values from customer
         LocalDate checkInDate = checkInDatePicker.getValue();
         LocalDate checkOutDate = checkOutDatePicker.getValue();
         String numOfGuestsText = numOfGuestsField.getText();
 
-            // check if all dates are enteredd
-            if (checkInDate == null || checkOutDate == null) {
-                displayErrorBox(AlertType.ERROR, "Date Error", "Please select check-in and check-out dates.");
-                return;
+        if (checkInDate == null || checkOutDate == null) {
+            displayErrorBox(AlertType.ERROR, "Date Error", "Please select check-in and check-out dates.");
+            return;
         }
 
-            // check if correct input for guests
-            if (numOfGuestsText == null || numOfGuestsText.trim().isEmpty()) {
-                displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter the number of guests.");
-                return;
+        if (numOfGuestsText == null || numOfGuestsText.trim().isEmpty()) {
+            displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter the number of guests.");
+            return;
         }
 
-            // check if dates entered are correct
-            if (checkInDate.isAfter(checkOutDate)) {
-                displayErrorBox(AlertType.ERROR, "Date Error", "Check-in date cannot be after check-out date.");
-                return;
+        if (checkInDate.isAfter(checkOutDate)) {
+            displayErrorBox(AlertType.ERROR, "Date Error", "Check-in date cannot be after check-out date.");
+            return;
         }
 
-            // placeholder, working on second window
-             System.out.println("tbd second window");
+        // Assuming reservation logic is implemented here
 
-            // to do
-            // read file - alert window for no rooms
-            // read file - new scene for available rooms
+        // Switch to second window after handling reservation
+        switchToSecondWindow();
+    }
 
-            // if room is available -> next window
-            // if room is NOT available -> another alert box
+    @FXML
+    private void switchToSecondWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("second-window.fxml"));
+            Parent newRoot = loader.load();
 
+            // Get the current stage
+            Stage currentStage = (Stage) buttonSearch.getScene().getWindow();
+            currentStage.setScene(new Scene(newRoot));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
