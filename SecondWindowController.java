@@ -5,7 +5,6 @@ import javafx.scene.control.Label;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.image.Image;
@@ -16,22 +15,10 @@ import javafx.scene.text.Text;
 import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 
-
-
 public class SecondWindowController {
 
     @FXML
     private ScrollPane scrollPane; // Scrollable window
-
-    @FXML
-    private void scrollSecondWindow() {
-        // scrolling should resize according to content, still iffy
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setFitToHeight(false);
-
-        }
 
     @FXML
     private AnchorPane anchorPane;
@@ -42,30 +29,26 @@ public class SecondWindowController {
     @FXML
     private Label dateLabel; // Display date input
 
+    @FXML
+    private VBox displayRoomBox; // vertical columns for rooms
 
-    // method to get datepicker input from window 1
+    // Method to get datepicker input from window 1
     public void displayDates(LocalDate checkInDate, LocalDate checkOutDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String formattedCheckinDate = checkInDate.format(formatter);
         String formattedCheckoutDate = checkOutDate.format(formatter);
         dateLabel.setText("selected dates: " + formattedCheckinDate + " to " + formattedCheckoutDate);
 
-        /* placeholder while waiting for backend
-         when displaydates method is called, it will also shows all the rooms available for now for the gui
-         eventually this will be its own method (i think?)  */
-        addRoomInfo("Single Room", "Description of Room 1", "/com/example/projcomp380/placeholder.jpg");
-        addRoomInfo("Twin Room", "Description of Room 2", "/com/example/projcomp380/placeholder.jpg");
-        addRoomInfo("Deluxe Room", "Description of Room 3", "/com/example/projcomp380/placeholder.jpg");
-        addRoomInfo("Suite", "Description of Room 4", "/com/example/projcomp380/placeholder.jpg");
+        RoomChoice roomChoice = new RoomChoice();
+        for (String roomType : roomChoice.getRoomTypes()) {
+            double price = roomChoice.getRoomPrice(roomType);
+            addRoomInfo(roomType, "description of " + roomType, "/com/example/projcomp380/placeholder.jpg", price);
+        }
 
-     }
+    }
 
-    @FXML
-    private VBox displayRoomBox; // vertical columns for rooms
-
-
-    // method to add each room type into a vbox
-    private void addRoomInfo(String roomType, String roomDescription, String photoPath) {
+    // Method to add each room type into a VBox
+    private void addRoomInfo(String roomType, String roomDescription, String photoPath, double price) {
         HBox roomInfo = new HBox(10);
         roomInfo.setAlignment(Pos.CENTER_LEFT);
         roomInfo.setPadding(new Insets(10));
@@ -74,27 +57,33 @@ public class SecondWindowController {
         displayRoomBox.setFillWidth(true);
         displayRoomBox.setSpacing(20);
 
-        // get image from path
+        // Get image from path
         String imagePath = getClass().getResource(photoPath).toExternalForm();
         Image image = new Image(imagePath);
-        // displau room photos
+        // Display room photos
         ImageView roomPhotos = new ImageView(image);
         roomPhotos.setFitHeight(120);
         roomPhotos.setFitWidth(120);
 
-        // vertical columns for room description
+        // Vertical columns for room description
         VBox roomDetails = new VBox(10);
         Label nameLabel = new Label(roomType);
         nameLabel.setFont(new Font("Avenir", 18));
         Text descriptionText = new Text(roomDescription);
         descriptionText.setWrappingWidth(300);
+        Label priceLabel = new Label("Price per night: $" + price);
+        priceLabel.setFont(new Font("Avenir", 14));
 
-
-        roomDetails.getChildren().addAll(nameLabel, descriptionText);
+        roomDetails.getChildren().addAll(nameLabel, descriptionText, priceLabel);
         roomInfo.getChildren().addAll(roomPhotos, roomDetails);
         displayRoomBox.getChildren().add(roomInfo);
+    }
 
-
-      }
-
+    // scroll pane should adjust accordinly, still not sure if it works
+    private void scrollSecondWindow() {
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(false);
+    }
 }
