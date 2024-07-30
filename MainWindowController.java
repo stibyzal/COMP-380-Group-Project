@@ -1,6 +1,12 @@
 package com.example.projcomp380;
 
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -8,6 +14,7 @@ import java.time.LocalDate;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Stage;
 
 public class MainWindowController {
 
@@ -55,43 +62,70 @@ public class MainWindowController {
         alert.setContentText(message);
         alert.showAndWait();
 
-}
+    }
 
     @FXML  //  method search parameters
-    protected void searchRoomAvailability() {
+    protected void searchRoomAvailability(ActionEvent actionEvent) throws Exception {
 
         // get input values from customer
         LocalDate checkInDate = checkInDatePicker.getValue();
         LocalDate checkOutDate = checkOutDatePicker.getValue();
         String numOfGuestsText = numOfGuestsField.getText();
 
-            // check if all dates are enteredd
-            if (checkInDate == null || checkOutDate == null) {
-                displayErrorBox(AlertType.ERROR, "Date Error", "Please select check-in and check-out dates.");
-                return;
+        // check if all dates are entered
+        if (checkInDate == null || checkOutDate == null) {
+            displayErrorBox(AlertType.ERROR, "Date Error", "Please select check-in and check-out dates.");
+            return;
         }
 
-            // check if correct input for guests
-            if (numOfGuestsText == null || numOfGuestsText.trim().isEmpty()) {
-                displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter the number of guests.");
-                return;
+        // check if correct input for guests
+        if (numOfGuestsText == null || numOfGuestsText.trim().isEmpty()) {
+            displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter the number of guests.");
+            return;
         }
 
-            // check if dates entered are correct
-            if (checkInDate.isAfter(checkOutDate)) {
-                displayErrorBox(AlertType.ERROR, "Date Error", "Check-in date cannot be after check-out date.");
-                return;
+        // check if dates entered are correct
+        if (checkInDate.isAfter(checkOutDate)) {
+            displayErrorBox(AlertType.ERROR, "Date Error", "Check-in date cannot be after check-out date.");
+            return;
         }
 
-            // placeholder, working on second window
-             System.out.println("tbd second window");
+        // Loads new scene/second window with available rooms
+        FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("second-window.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
 
-            // to do
-            // read file - alert window for no rooms
-            // read file - new scene for available rooms
+        SecondWindowController secondWindowController = fxmlLoader.getController();
 
-            // if room is available -> next window
-            // if room is NOT available -> another alert box
+        // pass and display date input to second window
+        secondWindowController.displayDates(checkInDate, checkOutDate);
+
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+
+    }
+
+        // loads new scene/window, to search existing reservation
+        @FXML
+        protected void goSearchReservation(ActionEvent actionEvent) throws Exception {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-reservation-window.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage newStage = new Stage();
+            newStage.setTitle("Hotel California");
+            newStage.setScene(new Scene(root));
+            newStage.show();
+            // closes main window when button is clicked
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            currentStage.close();
+
+
+
+        // to do
+        // read file - alert window for no rooms
+        // read file - new scene for available rooms
+
+        // if room is available -> next window
+        // if room is NOT available -> another alert box
 
     }
 }
