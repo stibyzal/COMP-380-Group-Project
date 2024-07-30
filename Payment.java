@@ -6,8 +6,8 @@ public class Payment {
     private String cardNumber;
     private String expirationDate;
     private String cvvNumber;
-   // private ArrayList<String> billingInfo = new ArrayList<String>();
-
+   Address address = new Address();
+    
     public Payment(){}  //Default constructor
     public Payment(String cardNumber, String expirationDate, String cvvNumber){
 
@@ -47,6 +47,8 @@ public class Payment {
         System.out.print("Enter the ccv number: ");
         this.cvvNumber = scanner.nextLine();
         System.out.println();
+        System.out.println("Billing address: ");
+        address.getAddress();  // Calling getAddress method in address 
 
     }
 
