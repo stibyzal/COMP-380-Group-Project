@@ -1,0 +1,8 @@
+package com.example.projcomp380;
+
+public class FourthWindowController {
+    public Customer finalCus = new Customer();
+    public Payment finalPay = new Payment();
+    public Reservation finalFinalRes = new Reservation();
+    
+}
