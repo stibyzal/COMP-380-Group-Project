@@ -1,4 +1,4 @@
-package javaOOP.HotelCalifornia;
+package com.example.projcomp380;
 import java.util.Scanner;
 
 public class ReservationManager {
@@ -37,13 +37,13 @@ public class ReservationManager {
 
     }
     public static void printReservationInfo(Reservation reservation){
-        System.out.println("Data of reservaton: " + reservation.getDateOfReservation() + "\nLength of stay: " + reservation.getLengthOfStay() +
+        System.out.println("Data of reservaton: " + reservation.getCheckInDate() + "\nLength of stay: " + reservation.getLengthOfStay() +
                 "\nnumber of guests: " + reservation.getNumGuests());
         System.out.println();
     }
     public static void printPaymentInfo(Payment pay){
         System.out.println("your card number is: " + pay.getCardNumber());
-        System.out.println("Your card's expiration date is: " + pay.getCardExpirationDate());
+        System.out.println("Your card's expiration date is: " + pay.getExpirationMonth() + "/" + pay.getExpirationYear());
         System.out.println("Yor card's cvv number is: " + pay.getCvvNumber());
     }
 
