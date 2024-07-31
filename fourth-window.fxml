@@ -4,7 +4,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projcomp380.FourthWindowController">
    <children>
       <Text layoutX="37.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel California">
@@ -12,13 +11,95 @@
             <Font size="40.0" />
          </font>
       </Text>
-      <Text layoutX="308.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation confirmed number goes here">
+      <Text layoutX="311.0" layoutY="132.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your reservation number:">
          <font>
-            <Font size="15.0" />
+            <Font size="24.0" />
          </font>
       </Text>
-      <Text layoutX="308.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" />
-      <Text layoutX="308.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" />
-      <Text layoutX="308.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text layoutX="181.0" layoutY="216.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your details">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="nameText" layoutX="570.0" layoutY="247.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name goes here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="272.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="emailText" layoutX="570.0" layoutY="271.0" strokeType="OUTSIDE" strokeWidth="0.0" text="email goes here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="dateText" layoutX="570.0" layoutY="297.0" strokeType="OUTSIDE" strokeWidth="0.0" text="date of making reservation">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Booking details">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation Number">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="reservationNumText" layoutX="570.0" layoutY="379.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation number goes here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-in">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="cidText" layoutX="570.0" layoutY="404.0" strokeType="OUTSIDE" strokeWidth="0.0" text="check in date goes here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-out">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="codText" layoutX="570.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="check out date goes here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="181.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount paid">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="paidText" layoutX="570.0" layoutY="454.0" strokeType="OUTSIDE" strokeWidth="0.0" text="amount paid goes here">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="reservationNumberTextBig" layoutX="275.0" layoutY="156.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation confirmed number goes here" textAlignment="CENTER" wrappingWidth="340.0859375">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
