@@ -1,4 +1,4 @@
-package com.example.hotelcalifornia;
+package com.example.demo6;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,11 +9,11 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 public class MainWindowController {
 
@@ -29,6 +29,8 @@ public class MainWindowController {
     @FXML
     private Button buttonSearch;
 
+    private static final String FILE_NAME = "reservations.txt";
+
     // Method to check for error, displays alert box
     private void displayErrorBox(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
@@ -36,18 +38,6 @@ public class MainWindowController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    @FXML
-    protected void getCheckInDate() {
-        // Method implementation (if needed)
-        System.out.println("Check-In Date: " + checkInDatePicker.getValue());
-    }
-
-    @FXML
-    protected void getCheckOutDate() {
-        // Method implementation (if needed)
-        System.out.println("Check-Out Date: " + checkOutDatePicker.getValue());
     }
 
     @FXML
@@ -71,10 +61,40 @@ public class MainWindowController {
             return;
         }
 
-        // Assuming reservation logic is implemented here
+        // Create a new Reservation object with the data from the form
+        Reservation newReservation = new Reservation();
+        newReservation.setDateOfReservation(checkInDate.toString());
+        newReservation.setLengthOfStay((int) checkInDate.until(checkOutDate).getDays());
+        newReservation.setNumGuests(Integer.parseInt(numOfGuestsText));
 
-        // Switch to second window after handling reservation
-        switchToSecondWindow();
+        // Read existing reservations from file
+        List<Reservation> reservations = Reservation.readReservationsFromFile(FILE_NAME);
+
+        // Check availability
+        boolean isAvailable = checkAvailability(newReservation, reservations);
+
+        if (isAvailable) {
+            displayErrorBox(AlertType.INFORMATION, "Availability", "The room is available for the selected dates.");
+            newReservation.writeReservationToFile(FILE_NAME);
+            // Switch to the second window only if available
+            switchToSecondWindow();
+        } else {
+            displayErrorBox(AlertType.INFORMATION, "Availability", "The room is not available for the selected dates.");
+            // Stay on the first window for re-input
+        }
+    }
+
+    // Method to check room availability with a maximum of 5 rooms per check-in date
+    private boolean checkAvailability(Reservation newReservation, List<Reservation> reservations) {
+        LocalDate checkInDate = LocalDate.parse(newReservation.getDateOfReservation());
+
+        // Count number of reservations for the check-in date
+        long count = reservations.stream()
+                .filter(r -> LocalDate.parse(r.getDateOfReservation()).equals(checkInDate))
+                .count();
+
+        // Check if the number of reservations exceeds the room limit
+        return count < 5;
     }
 
     @FXML
