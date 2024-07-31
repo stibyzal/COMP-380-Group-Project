@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projcomp380.ThirdWindowController">
+   <children>
+      <Button fx:id="bookButton" layoutX="802.0" layoutY="543.0" mnemonicParsing="false" onAction="#reservationConfirmedClick" prefHeight="26.0" prefWidth="51.0" text="Book" />
+      <Button fx:id="cancelButton" layoutX="35.0" layoutY="544.0" mnemonicParsing="false" text="Cancel" />
+      <ImageView fx:id="roomChosenPhoto" fitHeight="190.0" fitWidth="380.0" layoutX="51.0" layoutY="101.0" pickOnBounds="true" preserveRatio="true" />
+      <Text layoutX="14.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel California">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Text>
+      <Text layoutX="644.0" layoutY="86.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Order Summary:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="793.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Payment">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <TextField fx:id="firstNameText" layoutX="551.0" layoutY="220.0" prefHeight="26.0" prefWidth="156.0" />
+      <Text layoutX="551.0" layoutY="215.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+      <TextField fx:id="cardNumText" layoutX="550.0" layoutY="374.0" prefHeight="26.0" prefWidth="322.0" promptText="0000 0000 0000 0000" />
+      <Text layoutX="550.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number" />
+      <TextField fx:id="expMonthText" alignment="CENTER" layoutX="550.0" layoutY="429.0" prefHeight="26.0" prefWidth="42.0" promptText="MM" />
+      <Text layoutX="550.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration Date" />
+      <Text layoutX="603.0" layoutY="447.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+      <TextField fx:id="expYearText" alignment="CENTER" layoutX="617.0" layoutY="429.0" prefHeight="26.0" prefWidth="42.0" promptText="YY" />
+      <TextField fx:id="cvvText" layoutX="695.0" layoutY="430.0" prefHeight="26.0" prefWidth="69.0" promptText="000" />
+      <Text layoutX="695.0" layoutY="425.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CVV" />
+      <TextField fx:id="billAddText" layoutX="550.0" layoutY="487.0" prefHeight="26.0" prefWidth="322.0" />
+      <Text layoutX="550.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Billing Address" />
+      <Text layoutX="50.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-in:">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <Text layoutX="160.0" layoutY="385.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-out:">
+         <font>
+            <Font size="18.0" />
+         </font></Text>
+      <Text layoutX="599.0" layoutY="125.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price" />
+      <TextField fx:id="emailText" layoutX="551.0" layoutY="271.0" prefHeight="26.0" prefWidth="321.0" />
+      <Text layoutX="551.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" />
+      <Text fx:id="roomLabel" layoutX="50.0" layoutY="330.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Room type chosen goes here">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="nightsAndGuestsLabel" layoutX="50.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Number of nights staying and number of guests goes here">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="checkInLabel" layoutX="50.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check in date">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="checkOutLabel" layoutX="160.0" layoutY="410.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check out date">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text layoutX="551.0" layoutY="321.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" />
+      <TextField fx:id="phoneNumText" layoutX="551.0" layoutY="328.0" prefHeight="26.0" prefWidth="321.0" />
+      <TextField fx:id="lastNameText" layoutX="715.0" layoutY="220.0" prefHeight="26.0" prefWidth="156.0" />
+      <Text layoutX="717.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
+   </children>
+</AnchorPane>
