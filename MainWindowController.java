@@ -1,6 +1,5 @@
 package com.example.projcomp380;
 
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -10,14 +9,16 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+
 import java.time.LocalDate;
+
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class MainWindowController {
-
+    
     @FXML
     private Label groupTitle; // Hotel Name
 
@@ -90,34 +91,28 @@ public class MainWindowController {
             return;
         }
 
+
+
         // Loads new scene/second window with available rooms
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("second-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
+        //Storing check-in, check-out, and number of guests in reservation
         SecondWindowController secondWindowController = fxmlLoader.getController();
 
         // pass and display date input to second window
         secondWindowController.displayDates(checkInDate, checkOutDate);
+        
+        
+        //---------------------------------------------------------------------------------
+        //Get number of guests
+        secondWindowController.tempGuests = numOfGuestsText;
+        //----------------------------------------------------------------------------------
+
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
         stage.show();
-
-    }
-
-        // loads new scene/window, to search existing reservation
-        @FXML
-        protected void goSearchReservation(ActionEvent actionEvent) throws Exception {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-reservation-window.fxml"));
-            Parent root = fxmlLoader.load();
-            Stage newStage = new Stage();
-            newStage.setTitle("Hotel California");
-            newStage.setScene(new Scene(root));
-            newStage.show();
-            // closes main window when button is clicked
-            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            currentStage.close();
-
 
 
         // to do
@@ -128,4 +123,18 @@ public class MainWindowController {
         // if room is NOT available -> another alert box
 
     }
+
+    @FXML
+    protected void goSearchReservation(ActionEvent actionEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-reservation-window.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle("Hotel California");
+        newStage.setScene(new Scene(root));
+        newStage.show();
+        // closes main window when button is clicked
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
+    }
+
 }
