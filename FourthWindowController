@@ -1,11 +1,41 @@
 package com.example.projcomp380;
 
+import javafx.fxml.FXML;
+import javafx.scene.text.Text;
+
+import java.time.LocalDate;
+
 public class FourthWindowController {
     public Customer finalCus = new Customer();
     public Payment finalPay = new Payment();
     public Reservation finalFinalRes = new Reservation();
     public Address finalAdd = new Address();
-    
+    public RoomChoice finalRoom = new RoomChoice();
+
+    @FXML
+    private Text nameText;
+
+    @FXML
+    private Text emailText;
+
+    @FXML
+    private Text dateText;
+
+    @FXML
+    private Text reservationNumText;
+
+    @FXML
+    private Text cidText;
+
+    @FXML
+    private Text codText;
+
+    @FXML
+    private Text paidText;
+
+    @FXML
+    private Text reservationNumberTextBig;
+
 
     public void check(){
         System.out.println("Name: " + finalCus.getName() + " " + finalCus.getLastName());
@@ -14,6 +44,7 @@ public class FourthWindowController {
         System.out.println("Card Number: " + finalPay.getCardNumber());
         System.out.println("Expiration Date: " + finalPay.getExpirationMonth() + "/" + finalPay.getExpirationYear());
         System.out.println("CVV: " + finalPay.getCvvNumber());
+
         System.out.println("Street Address: " + finalAdd.getStreetName());
         System.out.println("City: " + finalAdd.getCity());
         System.out.println("Zip: " + finalAdd.getZipCode());
@@ -23,6 +54,18 @@ public class FourthWindowController {
         System.out.println("Check-in: " + finalFinalRes.getCheckInDate());
         System.out.println("Check-out: " + finalFinalRes.getCheckOutDate());
         System.out.println("Guests: " + finalFinalRes.getNumGuests());
-        System.out.println("Length of stay: " + finalFinalRes.getLengthOfStay());
+        System.out.println("Length of stay: " + finalFinalRes.getLengthOfStay() + " nights");
+
+        nameText.setText(finalCus.getName() + " " + finalCus.getLastName());
+        emailText.setText(finalCus.getEmail());
+
+        LocalDate currentDate = LocalDate.now();
+        dateText.setText(currentDate.toString());
+
+        reservationNumText.setText("12345");
+        cidText.setText(finalFinalRes.getCheckInDate());
+        codText.setText(finalFinalRes.getCheckOutDate());
+        paidText.setText("$$$$$");
+        reservationNumberTextBig.setText("12345");
     }
 }
