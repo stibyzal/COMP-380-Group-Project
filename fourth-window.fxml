@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projcomp380.FourthWindowController">
+   <children>
+      <Text layoutX="37.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Hotel California">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Text>
+      <Text layoutX="308.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Reservation confirmed number goes here">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Text>
+      <Text layoutX="308.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="User Name" />
+      <Text layoutX="308.0" layoutY="245.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email Address" />
+      <Text layoutX="308.0" layoutY="273.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+   </children>
+</AnchorPane>
