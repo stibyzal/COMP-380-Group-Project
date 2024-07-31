@@ -1,5 +1,13 @@
 package com.example.projcomp380;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import java.util.Date;
+import javafx.stage.Stage;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import java.time.LocalDate;
@@ -16,6 +24,9 @@ import javafx.geometry.Pos;
 import javafx.geometry.Insets;
 
 public class SecondWindowController {
+    @FXML
+    public Button nextSceneButton;
+
 
     @FXML
     private ScrollPane scrollPane; // Scrollable window
@@ -32,7 +43,25 @@ public class SecondWindowController {
     @FXML
     private VBox displayRoomBox; // vertical columns for rooms
 
-    // Method to get datepicker input from window 1
+    private String tempCid;
+    private String tempCod;
+
+
+//----------------------------------------------------------------------
+    //Method for calculating days spent at hotel
+    public String tempGuests;
+    private long nightsAtHotel;
+    public void totalDays(LocalDate first, LocalDate second){
+        Date in = java.sql.Date.valueOf(first);
+        Date out = java.sql.Date.valueOf(second);
+
+        long diff = (in.getTime()-out.getTime())/86400000;
+        this.nightsAtHotel = Math.abs(diff);
+    }
+//----------------------------------------------------------------------
+
+    // method to get datepicker input from window 1
+    //****Added String numOfGuests because it is the only way atm for us to get data from first scene to the next
     public void displayDates(LocalDate checkInDate, LocalDate checkOutDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
         String formattedCheckinDate = checkInDate.format(formatter);
@@ -45,9 +74,15 @@ public class SecondWindowController {
             addRoomInfo(roomType, "description of " + roomType, "/com/example/projcomp380/placeholder.jpg", price);
         }
 
+//-------------------------------------------------------------------------
+        totalDays(checkInDate, checkOutDate);
+
+        tempCid = formattedCheckinDate;
+        tempCod = formattedCheckoutDate;
+//-------------------------------------------------------------------------
     }
 
-    // Method to add each room type into a VBox
+    // method to add each room type into a vbox
     private void addRoomInfo(String roomType, String roomDescription, String photoPath, double price) {
         HBox roomInfo = new HBox(10);
         roomInfo.setAlignment(Pos.CENTER_LEFT);
@@ -79,11 +114,31 @@ public class SecondWindowController {
         displayRoomBox.getChildren().add(roomInfo);
     }
 
-    // scroll pane should adjust accordinly, still not sure if it works
+    // scroll pane should adjust accordingly, still not sure if it works
     private void scrollSecondWindow() {
         scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         scrollPane.setFitToWidth(true);
         scrollPane.setFitToHeight(false);
     }
+
+//------Button to switch to the next window and puts all reservation data into next window----------------------------
+    @FXML
+    protected void nextSceneButtonClick(ActionEvent actionEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("third-window.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+
+        //Doing temp cuz I haven't looked at the RoomChoice class yet
+        String tempRoomChosen = "Twin Room";
+        ThirdWindowController thirdWindowController = fxmlLoader.getController();
+        thirdWindowController.finalRes.setCheckInDate(tempCid);
+        thirdWindowController.finalRes.setCheckOutDate(tempCod);
+        thirdWindowController.finalRes.setLengthOfStay((int)nightsAtHotel);
+        thirdWindowController.finalRes.setNumGuests(tempGuests);
+        thirdWindowController.reservationLabels();
+        Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
