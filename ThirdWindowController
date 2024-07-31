@@ -15,6 +15,21 @@ import javafx.stage.Stage;
 public class ThirdWindowController {
 
     @FXML
+    private TextField addressTextField;
+
+    @FXML
+    private TextField cityTextField;
+
+    @FXML
+    private TextField zipTextField;
+
+    @FXML
+    private TextField countryTextField;
+
+    @FXML
+    private TextField countyTextField;
+
+    @FXML
     private TextField emailText;
 
     @FXML
@@ -48,10 +63,10 @@ public class ThirdWindowController {
     private Text checkOutLabel;
 
     @FXML
-    private Text nightsAndGuestsLabel;
+    private Text roomTypeAndGuestsLabel;
 
     @FXML
-    private Text roomLabel;
+    private Text nightsLabel;
 
     @FXML
     private Button cancelButton;
@@ -66,13 +81,16 @@ public class ThirdWindowController {
     public Reservation finalRes = new Reservation();
 
     public void reservationLabels(){
-        Image myImage = new Image(getClass().getResourceAsStream("/com/example/projcomp380/placeholder.jpg"), 380, 190, false, false);
+        Image myImage = new Image(getClass().getResourceAsStream("/com/example/projcomp380/placeholder.jpg"), 200, 200, false, false);
         roomChosenPhoto.setImage(myImage);
 
         //reservation stuff
-        nightsAndGuestsLabel.setText(finalRes.getLengthOfStay() + " nights, " + finalRes.getNumGuests() + " guests");
+
+        roomTypeAndGuestsLabel.setText("Room type" + " room for " + finalRes.getNumGuests() + " guests");
         checkInLabel.setText(finalRes.getCheckInDate());
         checkOutLabel.setText(finalRes.getCheckOutDate());
+        nightsLabel.setText(finalRes.getLengthOfStay() + " nights");
+
 
     }
 
@@ -83,6 +101,12 @@ public class ThirdWindowController {
         Scene scene = new Scene(fxmlLoader.load());
 
         FourthWindowController fourthWindowController = fxmlLoader.getController();
+        //reservation stuff
+        fourthWindowController.finalFinalRes.setNumGuests(finalRes.getNumGuests());
+        fourthWindowController.finalFinalRes.setLengthOfStay(finalRes.getLengthOfStay());
+        fourthWindowController.finalFinalRes.setCheckInDate(finalRes.getCheckInDate());
+        fourthWindowController.finalFinalRes.setCheckOutDate(finalRes.getCheckOutDate());
+
         //customer stuff
         fourthWindowController.finalCus.setName(firstNameText.getText());
         fourthWindowController.finalCus.setLastName(lastNameText.getText());
@@ -95,7 +119,14 @@ public class ThirdWindowController {
         fourthWindowController.finalPay.setExpirationYear(expYearText.getText());
         fourthWindowController.finalPay.setCvvNumber(cvvText.getText());
 
-        //haven't done address stuff yet, gotta also update the fxml file
+        //address stuff
+        fourthWindowController.finalAdd.setStreetName(addressTextField.getText());
+        fourthWindowController.finalAdd.setCity(cityTextField.getText());
+        fourthWindowController.finalAdd.setZipCode(Integer.parseInt(zipTextField.getText()));
+        fourthWindowController.finalAdd.setCountry(countryTextField.getText());
+        fourthWindowController.finalAdd.setCounty(countyTextField.getText());
+
+        fourthWindowController.check();
 
         Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         stage.setScene(scene);
