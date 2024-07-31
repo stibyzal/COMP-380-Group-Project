@@ -4,5 +4,25 @@ public class FourthWindowController {
     public Customer finalCus = new Customer();
     public Payment finalPay = new Payment();
     public Reservation finalFinalRes = new Reservation();
+    public Address finalAdd = new Address();
     
+
+    public void check(){
+        System.out.println("Name: " + finalCus.getName() + " " + finalCus.getLastName());
+        System.out.println("Email: " + finalCus.getEmail());
+        System.out.println("Phone Number: " + finalCus.getPhoneNumber());
+        System.out.println("Card Number: " + finalPay.getCardNumber());
+        System.out.println("Expiration Date: " + finalPay.getExpirationMonth() + "/" + finalPay.getExpirationYear());
+        System.out.println("CVV: " + finalPay.getCvvNumber());
+        System.out.println("Street Address: " + finalAdd.getStreetName());
+        System.out.println("City: " + finalAdd.getCity());
+        System.out.println("Zip: " + finalAdd.getZipCode());
+        System.out.println("Country: " + finalAdd.getCountry());
+        System.out.println("County: " + finalAdd.getCounty());
+
+        System.out.println("Check-in: " + finalFinalRes.getCheckInDate());
+        System.out.println("Check-out: " + finalFinalRes.getCheckOutDate());
+        System.out.println("Guests: " + finalFinalRes.getNumGuests());
+        System.out.println("Length of stay: " + finalFinalRes.getLengthOfStay());
+    }
 }
