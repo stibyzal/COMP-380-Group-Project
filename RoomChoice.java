@@ -1,36 +1,35 @@
 package com.example.projcomp380;
 
 import java.util.Scanner;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 public class RoomChoice {
 
-    private String[] roomTypes = {"Single room", "Twin room", "Executive room", "Suite"};
-    private int[] availableRooms = {1, 0, 0, 0}; // just a test
-    private double[] roomPrices = {100.0, 150.0, 200.0, 250.0}; // prices for each rooom
+    private String[] roomTypes = {"single room", "twin room", "suite", "executive room"};
+    private int[] availableRooms = {10, 10, 10, 10}; // just a test
+    private double[] roomPrices = {100.00, 200.00, 250.00, 450.00}; // prices for each room
     private String room;
     private String choice;
 
-    // Set method
-    public void setRoom(String room) {
-        this.room = room;
+    private Map<String, String> roomTypesWithImages;
+
+    public RoomChoice() {
+        // used LinkedHashMap, i was having troubles with the order of rooms with regular hashmap
+        roomTypesWithImages = new LinkedHashMap<>();
+        roomTypesWithImages.put("single room", "/com/example/projcomp380/singleroom.jpg");
+        roomTypesWithImages.put("twin room", "/com/example/projcomp380/twinroom.jpg");
+        roomTypesWithImages.put("suite", "/com/example/projcomp380/suite.jpg");
+        roomTypesWithImages.put("executive room", "/com/example/projcomp380/executiveroom.jpg");
     }
 
-    // Get method
-    public String getRoom() {
-        return this.room;
+    // method returns an array of room types from the roomTypesWithImages map
+    public String[] getRoomTypesWithImages() {
+        return roomTypesWithImages.keySet().toArray(new String[0]);
     }
 
-    // Get method for room types
-    public String[] getRoomTypes() {
-        return this.roomTypes;
-    }
-
-    // Get method for choice
-    public String getChoice() {
-        return this.choice;
-    }
-
-    // Get method for price
+    // method to get the price of a room
     public double getRoomPrice(String roomType) {
         for (int i = 0; i < roomTypes.length; i++) {
             if (roomTypes[i].equals(roomType)) {
@@ -40,7 +39,32 @@ public class RoomChoice {
         return 0.0;
     }
 
-    // Get method for available rooms
+    // method to get images of room per room type
+    public String getRoomImagePath(String roomType) {
+        return roomTypesWithImages.getOrDefault(roomType, "/com/example/projcomp380/placeholder.jpg");
+    }
+
+    // Set Method
+    public void setRoom(String room) {
+        this.room = room;
+    }
+
+    // Get Method
+    public String getRoom() {
+        return this.room;
+    }
+
+    // Get Method
+    public String[] getRoomTypes() {
+        return this.roomTypes;
+    }
+
+    // Get method
+    public String getChoice() {
+        return this.choice;
+    }
+
+    // Get method available rooms - test
     public int getAvailableRooms(String roomType) {
         for (int i = 0; i < roomTypes.length; i++) {
             if (roomTypes[i].equals(roomType)) {
@@ -50,7 +74,8 @@ public class RoomChoice {
         return 0;
     }
 
-    // Method for getting the room from the guest
+    //Other method
+    //Method for getting the room choice from the guest
     public void roomChoice() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please choose the room type: ");

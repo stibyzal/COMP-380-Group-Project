@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projcomp380.ThirdWindowController">
+    <children>
+        <Button fx:id="cancelButton" layoutX="35.0" layoutY="544.0" mnemonicParsing="false" text="Cancel" />
+        <ImageView fx:id="roomImageView" fitHeight="160.0" fitWidth="228.0" layoutX="140.0" layoutY="76.0" pickOnBounds="true" preserveRatio="true" />
+        <Text layoutX="18.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="HOTEL CALIFORNIA">
+            <font>
+                <Font name="Avenir Light" size="32.0" />
+            </font>
+        </Text>
+        <Text layoutX="534.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter your details:">
+            <font>
+                <Font name="Avenir Light" size="18.0" />
+            </font>
+        </Text>
+        <TextField fx:id="firstNameText" layoutX="537.0" layoutY="108.0" prefHeight="26.0" prefWidth="156.0" />
+        <Text layoutX="537.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="First Name" />
+        <TextField fx:id="cardNumText" layoutX="536.0" layoutY="252.0" prefHeight="26.0" prefWidth="322.0" promptText="0000 0000 0000 0000" />
+        <Text layoutX="536.0" layoutY="248.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Card Number" />
+        <TextField fx:id="expMonthText" alignment="CENTER" layoutX="536.0" layoutY="300.0" prefHeight="26.0" prefWidth="42.0" promptText="MM" />
+        <Text layoutX="536.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Expiration Date" />
+        <Text layoutX="589.0" layoutY="317.0" strokeType="OUTSIDE" strokeWidth="0.0" text="/" />
+        <TextField fx:id="expYearText" alignment="CENTER" layoutX="603.0" layoutY="300.0" prefHeight="26.0" prefWidth="42.0" promptText="YY" />
+        <TextField fx:id="cvvText" layoutX="681.0" layoutY="300.0" prefHeight="26.0" prefWidth="69.0" promptText="000" />
+        <Text layoutX="681.0" layoutY="296.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CVV" />
+        <TextField fx:id="addressTextField" layoutX="536.0" layoutY="391.0" prefHeight="26.0" prefWidth="322.0" />
+        <Text layoutX="536.0" layoutY="365.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your address">
+            <font>
+                <Font size="16.0" />
+            </font></Text>
+        <Text layoutX="112.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-in:">
+            <font>
+                <Font name="Avenir Roman" size="14.0" />
+            </font></Text>
+        <Text layoutX="338.0" layoutY="288.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Check-out:">
+            <font>
+                <Font name="Avenir Roman" size="14.0" />
+            </font></Text>
+        <Text layoutX="145.0" layoutY="505.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total price:">
+            <font>
+                <Font size="14.0" />
+            </font></Text>
+        <TextField fx:id="emailText" layoutX="537.0" layoutY="156.0" prefHeight="26.0" prefWidth="321.0" />
+        <Text layoutX="537.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email address" />
+        <Text fx:id="nightsLabel" layoutX="124.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="price per night:">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text layoutX="537.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone number" />
+        <TextField fx:id="phoneNumText" layoutX="537.0" layoutY="204.0" prefHeight="26.0" prefWidth="321.0" />
+        <TextField fx:id="lastNameText" layoutX="701.0" layoutY="108.0" prefHeight="26.0" prefWidth="156.0" />
+        <Text layoutX="703.0" layoutY="104.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Last Name" />
+        <Text fx:id="roomLabel1" layoutX="177.0" layoutY="258.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Your booking details">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Text>
+        <Text layoutX="536.0" layoutY="387.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Street Address" />
+        <TextField fx:id="cityTextField" layoutX="536.0" layoutY="439.0" prefHeight="26.0" prefWidth="200.0" />
+        <Text layoutX="536.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="City" />
+        <TextField fx:id="zipTextField" layoutX="743.0" layoutY="439.0" prefHeight="26.0" prefWidth="116.0" />
+        <Text layoutX="743.0" layoutY="435.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Zip code" />
+        <TextField fx:id="countryTextField" layoutX="536.0" layoutY="487.0" prefHeight="26.0" prefWidth="157.0" />
+        <Text layoutX="536.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Country" />
+        <TextField fx:id="countyTextField" layoutX="700.0" layoutY="487.0" prefHeight="26.0" prefWidth="158.0" />
+        <Text layoutX="700.0" layoutY="483.0" strokeType="OUTSIDE" strokeWidth="0.0" text="County" />
+        <Text layoutX="130.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" text="You selected:" wrappingWidth="102.0">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+        <Text layoutX="106.0" layoutY="422.0" strokeType="OUTSIDE" strokeWidth="0.0" text="number of guests:" wrappingWidth="129.7353515625">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Text>
+      <Label fx:id="roomTypeLabel" layoutX="222.0" layoutY="340.0" text="inputroom">
+         <font>
+            <Font name="Avenir Roman" size="14.0" />
+         </font></Label>
+      <Label fx:id="checkOutDateLabel" layoutX="321.0" layoutY="304.0" prefHeight="20.0" prefWidth="102.0" text="outputcheckout">
+         <font>
+            <Font name="Avenir Roman" size="14.0" />
+         </font></Label>
+      <Label fx:id="checkInDateLabel" layoutX="101.0" layoutY="304.0" text="inputcheckin">
+         <font>
+            <Font name="Avenir Roman" size="14.0" />
+         </font></Label>
+      <Label fx:id="guestsLabel" layoutX="227.0" layoutY="407.0" prefHeight="17.0" prefWidth="89.0" text="inputGuest">
+         <font>
+            <Font name="Avenir Roman" size="14.0" />
+         </font></Label>
+      <Label fx:id="totalPriceLabel" layoutX="237.0" layoutY="491.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="priceLabel" layoutX="238.0" layoutY="449.0" text="Label">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label fx:id="roomDescriptionLabel" layoutX="221.0" layoutY="364.0" prefHeight="20.0" prefWidth="116.0" text="Label">
+         <font>
+            <Font name="Avenir Roman" size="14.0" />
+         </font></Label>
+      <Label layoutX="228.0" layoutY="449.0" text="\$">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="228.0" layoutY="491.0" text="\$">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>
