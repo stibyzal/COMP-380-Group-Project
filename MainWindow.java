@@ -1,6 +1,5 @@
 package com.example.projcomp380;
 
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -20,15 +19,8 @@ public class MainWindow extends Application {
         stage.setY(100);
         stage.setScene(scene);
         stage.show();
-
-
     }
-
-
-
-
-
-
+    
     public static void main(String[] args) {
         launch();
     }
