@@ -45,25 +45,29 @@ public class SecondWindowController {
 
     // Method to get datepicker input from window 1
     public void displayDates(LocalDate checkInDate, LocalDate checkOutDate, int numGuests) {
+        // store input values
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.numGuests = numGuests;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy"); // change date format
         String formattedCheckinDate = checkInDate.format(formatter);
         String formattedCheckoutDate = checkOutDate.format(formatter);
+        // updates gui label  with user input from window 1
         dateLabel.setText("selected dates: " + formattedCheckinDate + " to " + formattedCheckoutDate +
                 "  number of guests: " + numGuests);
 
+        // create instance to get room details from room choice class
         RoomChoice roomChoice = new RoomChoice();
         for (String roomType : roomChoice.getRoomTypesWithImages()) {
             double price = roomChoice.getRoomPrice(roomType);
             String photoPath = roomChoice.getRoomImagePath(roomType);
+            // method that updates GUI with room details from roomchoice class
             addRoomInfo(roomType, "description of " + roomType, photoPath, price);
         }
     }
 
-    // Method to add each room type into a VBox
+    // method to add each room type into a vbox
     private void addRoomInfo(String roomType, String roomDescription, String photoPath, double price) {
         HBox roomInfo = new HBox(10);
         roomInfo.setAlignment(Pos.CENTER_LEFT);
@@ -73,13 +77,14 @@ public class SecondWindowController {
         displayRoomBox.setFillWidth(true);
         displayRoomBox.setSpacing(20);
 
-        // Get image from path
+        // get image from path using url
         URL imageUrl = getClass().getResource(photoPath);
         if (imageUrl == null) {
             System.err.println("Image not found: " + photoPath); // used for debbuging
             return;
         }
 
+        // creats an object for the image from url
         Image image = new Image(imageUrl.toExternalForm());
         ImageView roomPhotos = new ImageView(image);
         roomPhotos.setFitHeight(120);
@@ -94,6 +99,7 @@ public class SecondWindowController {
         Label priceLabel = new Label("Price per night: $" + price);
         priceLabel.setFont(new Font("Avenir", 14));
 
+        // add room details to the vertical columns
         roomDetails.getChildren().addAll(nameLabel, descriptionText, priceLabel);
 
         // action button to show 3rd window and includes all input from user
@@ -109,19 +115,19 @@ public class SecondWindowController {
         buttonBox.setAlignment(Pos.CENTER_RIGHT);
         buttonBox.setPadding(new Insets(10, 0, 10, 0));
 
+
         roomInfo.getChildren().addAll(roomPhotos, roomDetails, buttonBox);
         displayRoomBox.getChildren().add(roomInfo);
     }
 
     // opens up to the next scene
     private void showThirdWindow(String roomType, String roomDescription, double price, Image image) {
-        System.out.println("Showing third window"); // Debug statement
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/projcomp380/third-window.fxml"));
             Parent root = loader.load();
 
-            // gets reservation details
+            // gets reservation details and pass them to the 3rd window
             ThirdWindowController controller = loader.getController();
             controller.getReservationDetails(checkInDate, checkOutDate, numGuests, roomType, price, roomDescription, image);
 

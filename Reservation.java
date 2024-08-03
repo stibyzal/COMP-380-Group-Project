@@ -89,11 +89,14 @@ public class Reservation {
         return reservations;
     }
 
-    // Method to write a reservation to a file
-    public void writeReservationToFile(String fileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(this.checkInDate + "," + this.checkOutDate + "," + this.lengthOfStay + "," + this.numGuests);
-            writer.newLine();
+    // method so after confirmation, it saves customer choices into textfile with res. #
+    public void saveReservationToFile(String fileName, String confirmationNumber) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            writer.println(confirmationNumber + "," +
+                    this.checkInDate + "," +
+                    this.checkOutDate + "," +
+                    this.lengthOfStay + "," +
+                    this.numGuests);
         } catch (IOException e) {
             e.printStackTrace();
         }
