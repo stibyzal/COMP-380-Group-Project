@@ -117,7 +117,6 @@ public class MainWindowController {
         boolean isAvailable = newReservation.searchAvailability(reservations);
 
         if (isAvailable) {
-            newReservation.writeReservationToFile(FILE_NAME);
             displayErrorBox(AlertType.INFORMATION, "Reservation Successful", "The room is available for the selected dates.");
         } else {
             displayErrorBox(AlertType.ERROR, "No Rooms Available", "No rooms are available for the selected dates.");

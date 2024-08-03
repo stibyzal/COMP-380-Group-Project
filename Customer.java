@@ -1,25 +1,26 @@
-package javaOOP.HotelCalifornia;
+package com.example.projcomp380;
 
+import java.io.*;
 import java.util.Scanner;
 
 public class Customer {
-    private String name;
+    private String firstName;
     private String lastName;
     private String email;
     private String phoneNumber;
 
     public Customer(){} //Defaul constructor
 
-    public Customer(String name, String lastName, String email, String phoneNumber){  //Non-default constructor
-        this.setName(name);
+    public Customer(String firstName, String lastName, String email, String phoneNumber){  //Non-default constructor
+        this.setFirstName(firstName);
         this.setLastName(lastName);
         this.setEmail(email);
         this.setPhoneNumber(phoneNumber);
     }
 
     // Setter Methods
-    public void setName(String name){
-        this.name = name;
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
     }
     public void setLastName(String lastName){
         this.lastName = lastName;
@@ -32,8 +33,8 @@ public class Customer {
     }
 
     // Getter Methods
-    public String getName(){
-        return this.name;
+    public String getFirstName(){
+        return this.firstName;
     }
     public String getLastName(){
         return this.lastName;
@@ -45,11 +46,24 @@ public class Customer {
         return this.phoneNumber;
     }
 
+    // after confirmation, saveS customer info to file with reservation number
+    public void saveCustomerToFile(String fileName, String confirmationNumber) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            writer.println(confirmationNumber + "," +
+                    this.firstName + "," +
+                    this.lastName + "," +
+                    this.email + "," +
+                    this.phoneNumber);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //Other methods
-     void getInfo() {
+    void getInfo() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter your name: ");
-        this.name = scanner.nextLine();
+        this.firstName = scanner.nextLine();
         System.out.println();
         System.out.print("Enter your lastName: ");
         this.lastName = scanner.nextLine();

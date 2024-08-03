@@ -1,9 +1,11 @@
 package com.example.projcomp380;
 
-import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
+import java.util.Scanner;
 
 public class RoomChoice {
 
@@ -74,8 +76,17 @@ public class RoomChoice {
         return 0;
     }
 
-    //Other method
-    //Method for getting the room choice from the guest
+    // method to save customer room choice with res. #
+    public void saveRoomChoiceToFile(String fileName, String confirmationNumber) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            writer.println(confirmationNumber + "," + this.room);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Other method
+    // Method for getting the room choice from the guest
     public void roomChoice() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please choose the room type: ");
@@ -91,5 +102,10 @@ public class RoomChoice {
         } else {
             System.out.println("Invalid selection.");
         }
+    }
+
+    // Add getter for roomType
+    public String getRoomType() {
+        return this.room;
     }
 }
