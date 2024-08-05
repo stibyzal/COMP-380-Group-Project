@@ -8,10 +8,17 @@ public class Payment {
     private String expirationMonth;
     private String expirationYear;
     private String cvvNumber;
+    private double totalPrice;
+
 
     public Payment(){}  //Default constructor
-    public Payment(String cardNumber, String expirationMonth, String expirationYear, String cvvNumber){
-
+    public Payment(String cardNumber, String expirationMonth, String expirationYear, String cvvNumber,double totalPrice){
+        this.cardNumber = cardNumber;
+        this.expirationMonth = expirationMonth;
+        this.expirationYear = expirationYear;
+        this.cvvNumber = cvvNumber;
+        this.totalPrice = totalPrice;
+        
     }
 
     // Setter methods
@@ -27,6 +34,9 @@ public class Payment {
     public void setCvvNumber(String cvvNumber){
         this.cvvNumber = cvvNumber;
     }
+    public void setTotalPrice(double totalPrice){
+        this.totalPrice = totalPrice;
+    }
 
     // Get methods
     public String getCardNumber(){
@@ -41,6 +51,9 @@ public class Payment {
     public String getCvvNumber(){
         return this.cvvNumber;
     }
+    public double getTotalPrice(){
+        return this.totalPrice;
+    }    
 
     // after confirmation, customer payment info saves into file with res. #
     public void savePaymentToFile(String fileName, String confirmationNumber) {
@@ -49,7 +62,8 @@ public class Payment {
                     this.cardNumber + "," +
                     this.expirationMonth + "," +
                     this.expirationYear + "," +
-                    this.cvvNumber);
+                    this.cvvNumber + "," +
+                    this.totalPrice); 
         } catch (IOException e) {
             e.printStackTrace();
         }
