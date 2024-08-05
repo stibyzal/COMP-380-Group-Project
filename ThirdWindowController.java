@@ -146,7 +146,7 @@ public class ThirdWindowController {
         // creates objects for classes accordinly
         Address address = new Address(country, state, city, streetName, zipCode);
         Customer customer = new Customer(firstName, lastName, email, phoneNumber);
-        Payment payment = new Payment(cardNumber, expirationMonth, expirationYear, cvvNumber);
+        Payment payment = new Payment(cardNumber, expirationMonth, expirationYear, cvvNumber, totalPrice);
         Reservation reservation = new Reservation(checkInDate.toString(), checkOutDate.toString(), (int) ChronoUnit.DAYS.between(checkInDate, checkOutDate), numGuests);
         RoomChoice roomChoice = new RoomChoice();
         roomChoice.setRoom(roomType);
