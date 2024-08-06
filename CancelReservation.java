@@ -1,3 +1,5 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -6,8 +8,10 @@ import java.util.ArrayList;
 
 public class CancelReservation {
     private String reservationNum;
+    private String refundAmount;
 
     public CancelReservation(String reservationNum){
+        this.refundAmount = getRefundAmount(reservationNum);
         setReservationNum(reservationNum);
     }
 
@@ -15,11 +19,29 @@ public class CancelReservation {
     public void setReservationNum(String reservationNum){
         this.reservationNum = reservationNum;
         processCancellation(reservationNum);
+        
     }
+    
+    //Getting refund amount
+    protected String getRefundAmount(String key) {
+        String inputFile = "payment.txt"; // Path to payment.txt file
 
-
+        try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                if (!line.contains(key)) {
+                    String[] parts = line.split(",");
+                    return parts[parts.length - 1].trim();
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    // Removing reservation info
     protected void processCancellation(String key){
-        String inputFile = "reservation.txt";
+        String inputFile = "reservation.txt"; // Path to reservation.txt file
 
         try {
             //Read all lines from the file in a list
@@ -41,7 +63,7 @@ public class CancelReservation {
 
     //processing refund; deleting payment info
     protected void processRefund(String key){
-        String inputFile = "payment.txt"; // Path to payment txt file
+        String inputFile = "payment.txt"; // Path to payment.txt file
 
         try {
             //Read all lines from the file in a list
@@ -60,7 +82,7 @@ public class CancelReservation {
         }
 
         // Deleting address
-        String address = "address.txt"; // Path to address txt file
+        String address = "address.txt"; // Path to address.txt file
         try {
             //Read all lines from the file in a list
             List<String> lines = Files.readAllLines(Paths.get(address));
