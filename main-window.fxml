@@ -11,7 +11,6 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="360.0" prefWidth="816.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.projcomp380.MainWindowController">
     <children>
         <Label fx:id="groupTitle" layoutX="34.0" layoutY="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="253.0" text="HOTEL CALIFORNIA" AnchorPane.bottomAnchor="296.0" AnchorPane.leftAnchor="34.0">
@@ -55,5 +54,6 @@
         </Label>
         <Label fx:id="numOfGuestsLabel" layoutX="577.0" layoutY="200.0" text="Number of Guests" />
         <TextField fx:id="numOfGuestsField" layoutX="577.0" layoutY="219.0" prefHeight="26.0" prefWidth="144.0" promptText="Enter number of guests" />
+      <Button fx:id="cancelResButton" layoutX="585.0" layoutY="305.0" mnemonicParsing="false" onAction="#cancelReservation" text="Cancel A Reservation" />
     </children>
 </AnchorPane>
