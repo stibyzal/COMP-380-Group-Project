@@ -11,15 +11,14 @@ public class CancelReservation {
     private String refundAmount;
 
     public CancelReservation(String reservationNum){
-        this.refundAmount = getRefundAmount(reservationNum);
         setReservationNum(reservationNum);
+        this.refundAmount = getRefundAmount(reservationNum);
+        processCancellation(reservationNum);
     }
 
     //setter method
     public void setReservationNum(String reservationNum){
-        this.reservationNum = reservationNum;
-        processCancellation(reservationNum);
-        
+        this.reservationNum = reservationNum;   
     }
     
     //Getting refund amount
