@@ -13,6 +13,7 @@ import java.util.List;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
@@ -46,6 +47,11 @@ public class MainWindowController {
     @FXML
     private TextField numOfGuestsField; // Number of Guests TextField
 
+    //------------------------------------------------------------------------
+    @FXML
+    private Button cancelResButton;
+    //------------------------------------------------------------------------
+
     @FXML
     protected void getCheckInDate() {
         LocalDate selectedDate = checkInDatePicker.getValue();
@@ -57,7 +63,7 @@ public class MainWindowController {
 
     }
 
-
+    
     // method to check for error, displays alert box
     private void displayErrorBox(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
@@ -123,7 +129,7 @@ public class MainWindowController {
             return;
         }
 
-        // ;oads new scene/second window with available rooms
+        // loads new scene/second window with available rooms
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("second-window.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
@@ -152,7 +158,6 @@ public class MainWindowController {
         currentStage.close();
 
 
-
         // to do
         // read file - alert window for no rooms
         // read file - new scene for available rooms
@@ -160,5 +165,20 @@ public class MainWindowController {
         // if room is available -> next window
         // if room is NOT available -> another alert box
 
+    }
+//--------------------------------------------------------------------------------------------------
+    @FXML
+    protected void cancelReservation(ActionEvent actionEvent) throws Exception {
+        Stage stage = new Stage();
+        stage.setTitle("Hotel California");
+        Parent root;
+        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
+        if (actionEvent.getSource() == cancelResButton){
+            root = FXMLLoader.load(getClass().getResource("cancel-window.fxml"));
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.initOwner(cancelResButton.getScene().getWindow());
+            stage.showAndWait();
+        }
     }
 }
