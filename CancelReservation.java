@@ -1,3 +1,5 @@
+package com.example.projcomp380; 
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -18,12 +20,12 @@ public class CancelReservation {
 
     //setter method
     public void setReservationNum(String reservationNum){
-        this.reservationNum = reservationNum;   
+        this.reservationNum = reservationNum;
     }
-    
+
     //Getting refund amount
     protected String getRefundAmount(String key) {
-        String inputFile = "payment.txt"; // Path to payment.txt file
+        String inputFile = "payments.txt"; // Path to payment.txt file
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
@@ -40,7 +42,7 @@ public class CancelReservation {
     }
     // Removing reservation info
     protected void processCancellation(String key){
-        String inputFile = "reservation.txt"; // Path to reservation.txt file
+        String inputFile = "reservations.txt"; // Path to reservation.txt file
 
         try {
             //Read all lines from the file in a list
@@ -62,7 +64,7 @@ public class CancelReservation {
 
     //processing refund; deleting payment info
     protected void processRefund(String key){
-        String inputFile = "payment.txt"; // Path to payment.txt file
+        String inputFile = "payments.txt"; // Path to payment.txt file
 
         try {
             //Read all lines from the file in a list
@@ -81,7 +83,7 @@ public class CancelReservation {
         }
 
         // Deleting address
-        String address = "address.txt"; // Path to address.txt file
+        String address = "addresses.txt"; // Path to address.txt file
         try {
             //Read all lines from the file in a list
             List<String> lines = Files.readAllLines(Paths.get(address));
