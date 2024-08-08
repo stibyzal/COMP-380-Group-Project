@@ -166,6 +166,23 @@ public class MainWindowController {
         // if room is NOT available -> another alert box
 
     }
+
+    
+        // action button loads new scene to search and modify for an existing reservation
+    @FXML
+    protected void modifyReservation(ActionEvent actionEvent) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-to-modify-window.fxml"));
+        Parent root = fxmlLoader.load();
+        Stage newStage = new Stage();
+        newStage.setTitle("Hotel California");
+        newStage.setScene(new Scene(root));
+        newStage.show();
+
+        // closes main window when button is clicked
+        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        currentStage.close();
+
+    }
 //--------------------------------------------------------------------------------------------------
     @FXML
     protected void cancelReservation(ActionEvent actionEvent) throws Exception {
