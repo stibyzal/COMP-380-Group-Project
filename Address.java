@@ -1,8 +1,11 @@
-package javaOOP.HotelCalifornia;
+package com.example.projcomp380;
+
+import java.io.*;
 import java.util.Scanner;
+
 public class Address extends Payment{
     private String country;
-    private String county;
+    private String state;
     private String city;
     private String streetName;
     private int zipCode;
@@ -11,7 +14,7 @@ public class Address extends Payment{
 
     public Address(String country, String  county, String city, String streetName, int zipCode){
         setCountry(country);
-        setCounty(county);
+        setState(county);
         setCity(city);
         setStreetName(streetName);
         setZipCode(zipCode);
@@ -21,8 +24,8 @@ public class Address extends Payment{
     public void setCountry(String country){
         this.country = country;
     }
-    public void setCounty(String county){
-        this.county = county;
+    public void setState(String county){
+        this.state = county;
     }
     public void setCity(String city){
         this.city = city;
@@ -38,8 +41,8 @@ public class Address extends Payment{
     public String getCountry(){
         return this.country;
     }
-    public String getCounty(){
-        return this.county;
+    public String getState(){
+        return this.state;
     }
     public String getCity(){
         return this.city;
@@ -51,6 +54,20 @@ public class Address extends Payment{
         return this.zipCode;
     }
 
+    // after confirmation, save customer address to file with reservation number
+    public void saveAddressToFile(String fileName, String confirmationNumber) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            writer.println(confirmationNumber + "," +
+                    this.country + "," +
+                    this.state + "," +
+                    this.city + "," +
+                    this.streetName + "," +
+                    this.zipCode);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     //Other method
     // Getting user address
     Scanner scanner = new Scanner(System.in);
@@ -58,8 +75,8 @@ public class Address extends Payment{
         System.out.print("Country: ");
         setCountry(scanner.nextLine());
         System.out.println();
-        System.out.print("County: ");
-        setCounty(scanner.nextLine());
+        System.out.print("State: ");
+        setState(scanner.nextLine());
         System.out.println();
         System.out.print("City: ");
         setCity(scanner.nextLine());
