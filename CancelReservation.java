@@ -30,7 +30,7 @@ public class CancelReservation {
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.contains(key)) {
+                if (line.contains(key)) {
                     String[] parts = line.split(",");
                     return parts[parts.length - 1].trim();
                 }
