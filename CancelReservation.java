@@ -11,25 +11,29 @@ public class CancelReservation {
     private String refundAmount;
 
     public CancelReservation(String reservationNum){
-        this.refundAmount = getRefundAmount(reservationNum);
         setReservationNum(reservationNum);
+        this.refundAmount = getRefundAmount(reservationNum);
+        System.out.println("refund amount: " + this.refundAmount);
+        processCancellation(reservationNum);
     }
 
     //setter method
     public void setReservationNum(String reservationNum){
         this.reservationNum = reservationNum;
-        processCancellation(reservationNum);
-        
     }
-    
-    //Getting refund amount
+    // Getter method
+    public String getRefundAmount(){
+        return this.refundAmount;
+    }
+
+    // Getting refund amount
     protected String getRefundAmount(String key) {
-        String inputFile = "payment.txt"; // Path to payment.txt file
+        String inputFile = ""; // Path to payment txt file
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                if (!line.contains(key)) {
+                if (line.contains(key)) {
                     String[] parts = line.split(",");
                     return parts[parts.length - 1].trim();
                 }
@@ -39,67 +43,42 @@ public class CancelReservation {
         }
         return null;
     }
-    // Removing reservation info
+
+    // Processing cancellation
     protected void processCancellation(String key){
-        String inputFile = "reservation.txt"; // Path to reservation.txt file
+        String reservationFile = ""; // Path to reservation.txt file
+        String paymentFile = ""; // Path to payment.txt file
+        String addressFile = ""; // Path to address.txt file
+        String roomFile = ""; //Path to roomChoice.txt file
 
+        // Deleting reservation information
+        removeLinesContainingKey(reservationFile, key);
+        removeLinesContainingKey(paymentFile, key);
+        removeLinesContainingKey(addressFile, key);
+        removeLinesContainingKey(roomFile, key);
+
+
+    }
+    // This method is used for deleting information from databases
+    private void removeLinesContainingKey(String filePath, String key) {
         try {
-            //Read all lines from the file in a list
-            List<String> lines = Files.readAllLines(Paths.get(inputFile));
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
 
-            //Fiter out lines that contains the key
+            // Filter out lines that contain the key
             List<String> filteredLines = new ArrayList<>();
-            for(String line : lines){
-                if(!line.contains(key)){
+            for (String line : lines) {
+                if (!line.contains(key)) {
                     filteredLines.add(line);
                 }
             }
-            Files.write(Paths.get(inputFile), filteredLines);
-            processRefund(key);
-        }catch(IOException e){
+
+            // Write the filtered lines back to the file
+            Files.write(Paths.get(filePath), filteredLines);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    //processing refund; deleting payment info
-    protected void processRefund(String key){
-        String inputFile = "payment.txt"; // Path to payment.txt file
-
-        try {
-            //Read all lines from the file in a list
-            List<String> lines = Files.readAllLines(Paths.get(inputFile));
-
-            //Fiter out lines that contains the key
-            List<String> filteredLines = new ArrayList<>();
-            for(String line : lines){
-                if(!line.contains(key)){
-                    filteredLines.add(line);
-                }
-            }
-            Files.write(Paths.get(inputFile), filteredLines);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-        // Deleting address
-        String address = "address.txt"; // Path to address.txt file
-        try {
-            //Read all lines from the file in a list
-            List<String> lines = Files.readAllLines(Paths.get(address));
-
-            //Fiter out lines that contains the key
-            List<String> filteredLines = new ArrayList<>();
-            for(String line : lines){
-                if(!line.contains(key)){
-                    filteredLines.add(line);
-                }
-            }
-            Files.write(Paths.get(address), filteredLines);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-
-    }
 
 }
