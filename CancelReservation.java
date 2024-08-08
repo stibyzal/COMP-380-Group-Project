@@ -1,5 +1,4 @@
-package com.example.projcomp380; 
-
+package com.example.projcomp380;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,6 +10,10 @@ import java.util.ArrayList;
 public class CancelReservation {
     private String reservationNum;
     private String refundAmount;
+
+    public String refundAmountGetter(){
+        return refundAmount;
+    }
 
     public CancelReservation(String reservationNum){
         setReservationNum(reservationNum);
