@@ -29,7 +29,7 @@ public class CancelReservationController {
         String userReservationNum = enterResNum.getText();
 
         CancelReservation cancel = new CancelReservation(userReservationNum);
-        refundAmt = cancel.getRefundAmount(userReservationNum);
+        refundAmt = cancel.refundAmountGetter();
 
         //setting up the final popup
         ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
