@@ -39,7 +39,7 @@ public class CancelReservation {
 
     //Getting refund amount from database
     protected String getRefundAmount(String key) {
-        String inputFile = "payments.txt"; // Path to payment.txt file
+        String inputFile = ""; // Path to payment.txt file
 
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
@@ -65,15 +65,15 @@ public class CancelReservation {
         String roomFile = ""; //Path to roomChoice.txt file
 
         // Deleting reservation information
-        removeLinesContainingKey(reservationFile, key);
-        removeLinesContainingKey(paymentFile, key);
-        removeLinesContainingKey(addressFile, key);
-        removeLinesContainingKey(roomFile, key);
+        removeReservationInfo(reservationFile, key);
+        removeReservationInfo(paymentFile, key);
+        removeReservationInfo(addressFile, key);
+        removeReservationInfo(roomFile, key);
 
 
     }
     // This method is used for deleting information from databases
-    private void removeLinesContainingKey(String filePath, String key) {
+    private void removeReservationInfo(String filePath, String key) {
         try {
             // Read all lines from the file
             List<String> lines = Files.readAllLines(Paths.get(filePath));
