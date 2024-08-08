@@ -73,7 +73,7 @@ public class CancelReservation {
 
     }
     // This method is used for deleting information from databases
-    private void removeReservationInfo(String filePath, String key) {
+    protected void removeReservationInfo(String filePath, String key) {
         try {
             // Read all lines from the file
             List<String> lines = Files.readAllLines(Paths.get(filePath));
