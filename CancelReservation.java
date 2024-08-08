@@ -1,4 +1,6 @@
+
 package com.example.projcomp380;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -11,13 +13,17 @@ public class CancelReservation {
     private String reservationNum;
     private String refundAmount;
 
-    public String refundAmountGetter(){
-        return refundAmount;
-    }
 
     public CancelReservation(String reservationNum){
         setReservationNum(reservationNum);
         this.refundAmount = getRefundAmount(reservationNum);
+        System.out.println("refund amount: " + this.refundAmount);
+
+
+    public CancelReservation(String reservationNum){
+        setReservationNum(reservationNum);
+        this.refundAmount = getRefundAmount(reservationNum);
+
         processCancellation(reservationNum);
     }
 
@@ -25,10 +31,16 @@ public class CancelReservation {
     public void setReservationNum(String reservationNum){
         this.reservationNum = reservationNum;
     }
+      
+    //returning refund amount
+    public String refundAmountGetter(){
+        return refundAmount;
+    }
 
-    //Getting refund amount
+    //Getting refund amount from database
     protected String getRefundAmount(String key) {
         String inputFile = "payments.txt"; // Path to payment.txt file
+
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
             String line;
@@ -43,67 +55,42 @@ public class CancelReservation {
         }
         return null;
     }
-    // Removing reservation info
+
+
+    // Processing cancellation
     protected void processCancellation(String key){
-        String inputFile = "reservations.txt"; // Path to reservation.txt file
+        String reservationFile = ""; // Path to reservation.txt file
+        String paymentFile = ""; // Path to payment.txt file
+        String addressFile = ""; // Path to address.txt file
+        String roomFile = ""; //Path to roomChoice.txt file
 
-        try {
-            //Read all lines from the file in a list
-            List<String> lines = Files.readAllLines(Paths.get(inputFile));
+        // Deleting reservation information
+        removeLinesContainingKey(reservationFile, key);
+        removeLinesContainingKey(paymentFile, key);
+        removeLinesContainingKey(addressFile, key);
+        removeLinesContainingKey(roomFile, key);
 
-            //Fiter out lines that contains the key
-            List<String> filteredLines = new ArrayList<>();
-            for(String line : lines){
-                if(!line.contains(key)){
-                    filteredLines.add(line);
-                }
-            }
-            Files.write(Paths.get(inputFile), filteredLines);
-            processRefund(key);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
+
     }
-
-    //processing refund; deleting payment info
-    protected void processRefund(String key){
-        String inputFile = "payments.txt"; // Path to payment.txt file
-
+    // This method is used for deleting information from databases
+    private void removeLinesContainingKey(String filePath, String key) {
         try {
-            //Read all lines from the file in a list
-            List<String> lines = Files.readAllLines(Paths.get(inputFile));
+            // Read all lines from the file
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
 
-            //Fiter out lines that contains the key
+            // Filter out lines that contain the key
             List<String> filteredLines = new ArrayList<>();
-            for(String line : lines){
-                if(!line.contains(key)){
+            for (String line : lines) {
+                if (!line.contains(key)) {
                     filteredLines.add(line);
                 }
             }
-            Files.write(Paths.get(inputFile), filteredLines);
-        }catch(IOException e){
+
+            // Write the filtered lines back to the file
+            Files.write(Paths.get(filePath), filteredLines);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // Deleting address
-        String address = "addresses.txt"; // Path to address.txt file
-        try {
-            //Read all lines from the file in a list
-            List<String> lines = Files.readAllLines(Paths.get(address));
-
-            //Fiter out lines that contains the key
-            List<String> filteredLines = new ArrayList<>();
-            for(String line : lines){
-                if(!line.contains(key)){
-                    filteredLines.add(line);
-                }
-            }
-            Files.write(Paths.get(address), filteredLines);
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-
-
     }
 
 }
