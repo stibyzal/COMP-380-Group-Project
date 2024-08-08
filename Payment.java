@@ -1,6 +1,8 @@
 package com.example.projcomp380;
 
 import java.io.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class Payment {
@@ -8,17 +10,15 @@ public class Payment {
     private String expirationMonth;
     private String expirationYear;
     private String cvvNumber;
-    private double totalPrice;
-
+    private double totalPrice; // Add totalPrice attribute
 
     public Payment(){}  //Default constructor
-    public Payment(String cardNumber, String expirationMonth, String expirationYear, String cvvNumber,double totalPrice){
+    public Payment(String cardNumber, String expirationMonth, String expirationYear, String cvvNumber, double totalPrice){
         this.cardNumber = cardNumber;
         this.expirationMonth = expirationMonth;
         this.expirationYear = expirationYear;
         this.cvvNumber = cvvNumber;
         this.totalPrice = totalPrice;
-        
     }
 
     // Setter methods
@@ -38,6 +38,7 @@ public class Payment {
         this.totalPrice = totalPrice;
     }
 
+
     // Get methods
     public String getCardNumber(){
         return this.cardNumber;
@@ -53,7 +54,7 @@ public class Payment {
     }
     public double getTotalPrice(){
         return this.totalPrice;
-    }    
+    }
 
     // after confirmation, customer payment info saves into file with res. #
     public void savePaymentToFile(String fileName, String confirmationNumber) {
@@ -63,11 +64,20 @@ public class Payment {
                     this.expirationMonth + "," +
                     this.expirationYear + "," +
                     this.cvvNumber + "," +
-                    this.totalPrice); 
+                    this.totalPrice); // Add totalPrice to the file
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+    /* added for modifyreservationcontroller
+    to calculate new total price based on check-in date, check-out date, and room type */
+    public static double calculateNewTotalPrice(LocalDate checkInDate, LocalDate checkOutDate, String roomType, RoomChoice roomChoice) {
+        int days = (int) ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+        double roomPrice = roomChoice.getRoomPrice(roomType);
+        return days * roomPrice;
+    }
+
 
     // Other classes
     Scanner scanner = new Scanner(System.in);
