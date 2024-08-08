@@ -1,17 +1,16 @@
 package com.example.projcomp380;
 
+
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Reservation {
     private String checkInDate;
     private String checkOutDate;
     private int lengthOfStay;
     private int numGuests;
-    private int reservationNumber = generateReservationNum();
 
     // Default constructor
     public Reservation() {}
@@ -90,17 +89,15 @@ public class Reservation {
 
         return reservations;
     }
-    // Generating reservatin number
-    public int generateReservationNum(){
-        Random random = new Random();
-        return 10000 + random.nextInt(90000);
-}
-    // Method to write a reservation to a file
-    public void writeReservationToFile(String fileName) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName, true))) {
-            writer.write(this.checkInDate + "," + this.checkOutDate + "," + this.lengthOfStay + "," + this.numGuests +
-                    "," +this.reservationNumber);
-            writer.newLine();
+
+    // method so after confirmation, it saves customer choices into textfile with res. #
+    public void saveReservationToFile(String fileName, String confirmationNumber) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
+            writer.println(confirmationNumber + "," +
+                    this.checkInDate + "," +
+                    this.checkOutDate + "," +
+                    this.lengthOfStay + "," +
+                    this.numGuests);
         } catch (IOException e) {
             e.printStackTrace();
         }
