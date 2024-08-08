@@ -39,7 +39,7 @@ public class CancelReservation {
 
     //Getting refund amount from database
     protected String getRefundAmount(String key) {
-        String inputFile = "payments.txt"; // Path to payment.txt file
+        String inputFile = ""; // Path to payment.txt file
 
 
         try (BufferedReader reader = new BufferedReader(new FileReader(inputFile))) {
