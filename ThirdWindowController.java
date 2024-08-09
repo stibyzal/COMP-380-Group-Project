@@ -175,6 +175,11 @@ public class ThirdWindowController {
             // get final reservation details to next window
             controller.getConfirmation(customer, payment, address, reservation, reservationNumber, totalPaid);
             stage.show();
+
+            // Get current stage and close it
+            Stage currentStage = (Stage) confirmButton.getScene().getWindow();
+            currentStage.close();
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
