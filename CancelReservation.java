@@ -13,13 +13,6 @@ public class CancelReservation {
     private String reservationNum;
     private String refundAmount;
 
-
-    public CancelReservation(String reservationNum){
-        setReservationNum(reservationNum);
-        this.refundAmount = getRefundAmount(reservationNum);
-        System.out.println("refund amount: " + this.refundAmount);
-
-
     public CancelReservation(String reservationNum){
         setReservationNum(reservationNum);
         this.refundAmount = getRefundAmount(reservationNum);
