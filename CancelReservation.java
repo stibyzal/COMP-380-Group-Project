@@ -15,7 +15,6 @@ public class CancelReservation {
     public CancelReservation(String reservationNum){
             setReservationNum(reservationNum);
             this.refundAmount = getRefundAmount(reservationNum);
-            System.out.println(refundAmount);
             processCancellation(reservationNum);
         }
 
