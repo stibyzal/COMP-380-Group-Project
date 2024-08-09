@@ -108,6 +108,10 @@ public class SecondWindowController {
         bookNowButton.setOnAction(event -> {
             // user input being retrieved
             showThirdWindow(roomType, roomDescription, price, image);
+
+            // get current stage and close it
+            Stage currentStage = (Stage) bookNowButton.getScene().getWindow();
+            currentStage.close();
         });
 
         // horizontal box for book now button
