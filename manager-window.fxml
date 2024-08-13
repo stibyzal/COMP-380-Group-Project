@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="800.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo6.ManagerWindowController">
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" prefHeight="50.0" prefWidth="300.0" text="Manager Reports">
+            <font>
+                <Font name="Candara" size="28.0" />
+            </font>
+        </Label>
+
+        <DatePicker fx:id="datePicker" layoutX="20.0" layoutY="80.0" prefWidth="200.0" promptText="Enter a Date" />
+        <Button layoutX="230.0" layoutY="80.0" onAction="#handleGenerateReport" text="Generate Report" />
+
+        <!-- Text areas for current and previous week side by side -->
+        <Label layoutX="20.0" layoutY="120.0" text="Current Week" />
+        <Label layoutX="510.0" layoutY="120.0" text="Previous Week" />
+
+        <TextArea fx:id="currentWeekTextArea" layoutX="20.0" layoutY="150.0" prefHeight="120.0" prefWidth="450.0" wrapText="true" />
+        <TextArea fx:id="previousWeekTextArea" layoutX="510.0" layoutY="150.0" prefHeight="120.0" prefWidth="450.0" wrapText="true" />
+
+        <!-- TabPane to separate each chart into tabs -->
+        <TabPane layoutX="20.0" layoutY="281.0" prefHeight="511.0" prefWidth="960.0">
+            <tabs>
+                <Tab text="Revenue">
+                    <AnchorPane>
+                        <BarChart fx:id="revenueChart" barGap="5.0" prefHeight="450.0" prefWidth="950.0">
+                            <xAxis>
+                                <CategoryAxis label="Week" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Revenue" />
+                            </yAxis>
+                        </BarChart>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="Guests">
+                    <AnchorPane>
+                        <BarChart fx:id="guestsChart" prefHeight="450.0" prefWidth="950.0">
+                            <xAxis>
+                                <CategoryAxis label="Week" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Guests" />
+                            </yAxis>
+                        </BarChart>
+                    </AnchorPane>
+                </Tab>
+                <Tab text="Rooms Booked">
+                    <AnchorPane>
+                        <BarChart fx:id="roomsBookedChart" prefHeight="450.0" prefWidth="950.0">
+                            <xAxis>
+                                <CategoryAxis label="Week" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis label="Rooms Booked" />
+                            </yAxis>
+                        </BarChart>
+                    </AnchorPane>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</AnchorPane>

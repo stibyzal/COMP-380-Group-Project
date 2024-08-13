@@ -1,21 +1,22 @@
-package com.example.projcomp380;
+package com.example.demo6;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
+
 import java.time.LocalDate;
 import java.util.List;
-import javafx.scene.control.TextField;
-import javafx.scene.control.Alert;
+
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
+
+import static javafx.scene.control.Alert.AlertType.*;
+import static javafx.scene.control.Alert.AlertType.INFORMATION;
 
 
 public class MainWindowController {
@@ -63,7 +64,7 @@ public class MainWindowController {
 
     }
 
-    
+
     // method to check for error, displays alert box
     private void displayErrorBox(AlertType type, String title, String message) {
         Alert alert = new Alert(type);
@@ -84,19 +85,19 @@ public class MainWindowController {
 
         // check if dates are entered
         if (checkInDate == null || checkOutDate == null) {
-            displayErrorBox(AlertType.ERROR, "Date Error", "Please select check-in and check-out dates.");
+            displayErrorBox(ERROR, "Date Error", "Please select check-in and check-out dates.");
             return;
         }
 
         // check if number of guests is empty
         if (numOfGuestsText == null || numOfGuestsText.trim().isEmpty()) {
-            displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter the number of guests.");
+            displayErrorBox(ERROR, "Guest Error", "Please enter the number of guests.");
             return;
         }
 
         // check if number of guests input is a number
         if (!numOfGuestsText.matches("\\d+")) {
-            displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter a valid number of guests.");
+            displayErrorBox(ERROR, "Guest Error", "Please enter a valid number of guests.");
             return;
         }
 
@@ -104,7 +105,7 @@ public class MainWindowController {
         int numGuests = Integer.parseInt(numOfGuestsText);
 
         if (checkInDate.isAfter(checkOutDate)) {
-            displayErrorBox(AlertType.ERROR, "Date Error", "Check-in date cannot be after check-out date.");
+            displayErrorBox(ERROR, "Date Error", "Check-in date cannot be after check-out date.");
             return;
         }
 
@@ -123,9 +124,9 @@ public class MainWindowController {
         boolean isAvailable = newReservation.searchAvailability(reservations);
 
         if (isAvailable) {
-            displayErrorBox(AlertType.INFORMATION, "Reservation Successful", "The room is available for the selected dates.");
+            displayErrorBox(INFORMATION, "Reservation Successful", "The room is available for the selected dates.");
         } else {
-            displayErrorBox(AlertType.ERROR, "No Rooms Available", "No rooms are available for the selected dates.");
+            displayErrorBox(ERROR, "No Rooms Available", "No rooms are available for the selected dates.");
             return;
         }
 
@@ -167,8 +168,8 @@ public class MainWindowController {
 
     }
 
-    
-        // action button loads new scene to search and modify for an existing reservation
+
+    // action button loads new scene to search and modify for an existing reservation
     @FXML
     protected void modifyReservation(ActionEvent actionEvent) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-to-modify-window.fxml"));
@@ -183,7 +184,7 @@ public class MainWindowController {
         currentStage.close();
 
     }
-//--------------------------------------------------------------------------------------------------
+    //--------------------------------------------------------------------------------------------------
     @FXML
     protected void cancelReservation(ActionEvent actionEvent) throws Exception {
         Stage stage = new Stage();
@@ -196,6 +197,63 @@ public class MainWindowController {
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.initOwner(cancelResButton.getScene().getWindow());
             stage.showAndWait();
+        }
+    }
+
+
+    //---------------------------------------------------------------------------------------------
+    //Manager Login Section
+    @FXML
+    protected void managerLogin(ActionEvent actionEvent) throws Exception {
+        // Prompt for User ID
+        TextInputDialog userIDDialog = new TextInputDialog();
+        userIDDialog.setTitle("Manager Login");
+        userIDDialog.setHeaderText("Please enter your User ID:");
+        userIDDialog.setContentText("User ID:");
+
+        String userID = userIDDialog.showAndWait().orElse("");
+
+        // Check if User ID is empty
+        if (userID.isEmpty()) {
+            displayErrorBox(Alert.AlertType.ERROR, "Login Failed", "User ID is required.");
+            return;
+        }
+
+        // Check if User ID is correct
+        if (!"admin".equals(userID)) {
+            displayErrorBox(Alert.AlertType.ERROR, "Login Failed", "Invalid User ID.");
+            return;
+        }
+
+        // Prompts user to input password
+        TextInputDialog passwordDialog = new TextInputDialog();
+        passwordDialog.setTitle("Manager Login");
+        passwordDialog.setHeaderText("Please enter your Password:");
+        passwordDialog.setContentText("Password:");
+
+        String password = passwordDialog.showAndWait().orElse("");
+
+        // Check if Password is empty
+        if (password.isEmpty()) {
+            displayErrorBox(Alert.AlertType.ERROR, "Login Failed", "Password is required.");
+            return;
+        }
+
+        // Check if Password is correct
+        if ("password1234".equals(password)) {
+            displayErrorBox(Alert.AlertType.INFORMATION, "Login Successful", "Welcome, admin!");
+
+            // Load the Manager Window after successful login
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("manager-window.fxml"));
+            Parent root = fxmlLoader.load();
+
+            Stage stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+
+        } else {
+            displayErrorBox(Alert.AlertType.ERROR, "Login Failed", "Invalid Password.");
         }
     }
 }
