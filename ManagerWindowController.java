@@ -79,7 +79,7 @@ public class ManagerWindowController {
         }
     }
 
-    private void populateGuestsChart(ManagerReport report, LocalDate selectedDate) {
+    private void populateGuestsChart(ManagerReport report, LocalDate selectedDate) {//populates the guests onto the bar chart
         guestsChart.getData().clear();
 
         XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();
@@ -100,7 +100,7 @@ public class ManagerWindowController {
         }
     }
 
-    private void populateRoomsBookedChart(ManagerReport report, LocalDate selectedDate) {
+    private void populateRoomsBookedChart(ManagerReport report, LocalDate selectedDate) {//populates the rooms booked onto the bar chart
         roomsBookedChart.getData().clear();
 
         XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();
