@@ -18,7 +18,7 @@ public class ManagerReport {
         readReservationsAndPaymentsFromFile(reservationFileName, paymentFileName);
     }
 
-    private void readReservationsAndPaymentsFromFile(String reservationFileName, String paymentFileName) {
+    private void readReservationsAndPaymentsFromFile(String reservationFileName, String paymentFileName) {//reads the reservation information from txt files
         try (BufferedReader reservationReader = new BufferedReader(new FileReader(reservationFileName));
              BufferedReader paymentReader = new BufferedReader(new FileReader(paymentFileName))) {
             String reservationLine, paymentLine;
@@ -43,7 +43,7 @@ public class ManagerReport {
         }
     }
 
-    public double getRevenue(LocalDate date) {
+    public double getRevenue(LocalDate date) {//method to get the revenue for the Week of date
         double weeklyTotalPrice = 0.0;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
 
