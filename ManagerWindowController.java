@@ -82,11 +82,11 @@ public class ManagerWindowController {
     private void populateGuestsChart(ManagerReport report, LocalDate selectedDate) {//populates the guests onto the bar chart
         guestsChart.getData().clear();
 
-        XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();//current week chart
         currentWeekSeries.setName("Current Week");
         currentWeekSeries.getData().add(new XYChart.Data<>("Guests", report.getGuests(selectedDate)));
 
-        XYChart.Series<String, Number> previousWeekSeries = new XYChart.Series<>();
+        XYChart.Series<String, Number> previousWeekSeries = new XYChart.Series<>();//previous week chart
         previousWeekSeries.setName("Previous Week");
         previousWeekSeries.getData().add(new XYChart.Data<>("Guests", report.getGuests(selectedDate.minusWeeks(1))));
 
