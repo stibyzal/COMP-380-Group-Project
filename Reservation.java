@@ -1,4 +1,4 @@
-package com.example.projcomp380;
+package com.example.demo6;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -12,7 +12,7 @@ public class Reservation {
     private int numGuests;
 
     // Default constructor
-    public Reservation() {}
+    public Reservation(String checkInDate, String checkOutDate, int length, int guests, String trim) {}
 
     public Reservation(String checkInDate, String checkOutDate, int lengthOfStay, int numGuests) {
         this.checkInDate = checkInDate;
@@ -100,5 +100,9 @@ public class Reservation {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String getRoomType() {
+        return null;
     }
 }
