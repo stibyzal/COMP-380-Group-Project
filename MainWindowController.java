@@ -208,8 +208,8 @@ public class MainWindowController {
         // Prompt for User ID
         TextInputDialog userIDDialog = new TextInputDialog();
         userIDDialog.setTitle("Manager Login");
-        userIDDialog.setHeaderText("Please enter your User ID:");
-        userIDDialog.setContentText("User ID:");
+        userIDDialog.setHeaderText("Please enter your User ID:");//prompts user to input user id
+        userIDDialog.setContentText("User ID:");//prompts user to input user id
 
         String userID = userIDDialog.showAndWait().orElse("");
 
@@ -228,7 +228,7 @@ public class MainWindowController {
         // Prompts user to input password
         TextInputDialog passwordDialog = new TextInputDialog();
         passwordDialog.setTitle("Manager Login");
-        passwordDialog.setHeaderText("Please enter your Password:");
+        passwordDialog.setHeaderText("Please enter your Password:");//prompts user to input password
         passwordDialog.setContentText("Password:");
 
         String password = passwordDialog.showAndWait().orElse("");
