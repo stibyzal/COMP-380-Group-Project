@@ -64,7 +64,7 @@ public class ManagerReport {
         return weeklyTotalPrice;
     }
 
-    public int getGuests(LocalDate date) {
+    public int getGuests(LocalDate date) {//method to get the amount of guests for the inputted date
         int weeklyGuests = 0;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
 
@@ -82,7 +82,7 @@ public class ManagerReport {
         return weeklyGuests;
     }
 
-    public int getRoomsBooked(LocalDate date) {
+    public int getRoomsBooked(LocalDate date) {//method to get the amount of rooms booked
         int weeklyRoomsBooked = 0;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
 
@@ -100,7 +100,7 @@ public class ManagerReport {
         return weeklyRoomsBooked;
     }
 
-    public String getWeeklyData(LocalDate date) {
+    public String getWeeklyData(LocalDate date) {//gets weekly data
         StringBuilder weeklyData = new StringBuilder();
         double weeklyTotalPrice = getRevenue(date);
         int weeklyGuests = getGuests(date);
