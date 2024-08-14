@@ -71,10 +71,10 @@ public class ManagerWindowController {
         revenueChart.getData().addAll(currentWeekSeries, previousWeekSeries);
 
         // Colors of Bars
-        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {
+        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {//fills the color of bar chart to orange
             data.getNode().setStyle("-fx-bar-fill: orange;");
         }
-        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {
+        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {//fills the color of bar chart to yello
             data.getNode().setStyle("-fx-bar-fill: yellow;");
         }
     }
@@ -92,10 +92,10 @@ public class ManagerWindowController {
 
         guestsChart.getData().addAll(currentWeekSeries, previousWeekSeries);
 
-        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {
+        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {//fills the color of bar chart to orange
             data.getNode().setStyle("-fx-bar-fill: orange;");
         }
-        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {
+        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {//fills color of bar chart to yello
             data.getNode().setStyle("-fx-bar-fill: yellow;");
         }
     }
