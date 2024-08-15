@@ -1,4 +1,4 @@
-package com.example.demo6;
+package com.example.projcomp380;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,14 +15,20 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.event.ActionEvent;
 
-import static javafx.scene.control.Alert.AlertType.*;
-import static javafx.scene.control.Alert.AlertType.INFORMATION;
-
+/**
+ * MainWindowController
+ * is responsible for handling the main window's GUI.
+ * It manages the user interactions with the main UI components, connects the UI with the backend logic,
+ * and ensures a smooth user experience of the main window.
+ *
+ * @author Kristina Dela Merced
+ * @version 1.0
+ */
 
 public class MainWindowController {
 
 
-    private static final String FILE_NAME = "reservation.txt";
+    private static final String FILE_NAME = "reservations.txt";
 
     @FXML
     private Label groupTitle; // Hotel Name
@@ -53,10 +59,20 @@ public class MainWindowController {
     private Button cancelResButton;
     //------------------------------------------------------------------------
 
+    /**
+     * Retrieves the selected check-in date from the DatePicker.
+     * @return the selected LocalDate for check-in
+     */
+
     @FXML
     protected void getCheckInDate() {
         LocalDate selectedDate = checkInDatePicker.getValue();
     }
+
+    /**
+     * Retrieves the selected check-out date from the DatePicker.
+     * @return the selected LocalDate for check-out
+     */
 
     @FXML
     protected void getCheckOutDate() {
@@ -64,6 +80,13 @@ public class MainWindowController {
 
     }
 
+
+    /**
+     * Displays an error alert box with the given title and message.
+     *
+     * @param title The title of the error box.
+     * @param message The error message to display.
+     */
 
     // method to check for error, displays alert box
     private void displayErrorBox(AlertType type, String title, String message) {
@@ -75,6 +98,15 @@ public class MainWindowController {
 
     }
 
+    /**
+     * SearchRoomAvailability method
+     * Handles the action when the Search button is clicked.
+     * It validates input, and if the input is valid, it proceeds to open the search results window.
+     *
+     * @param actionEvent the ActionEvent triggered by the button click
+     * @throws Exception If there is an issue loading the FXML file or setting up the new stage.
+     */
+
     @FXML //  method search parameters
     protected void searchRoomAvailability(ActionEvent actionEvent) throws Exception {
 
@@ -85,19 +117,19 @@ public class MainWindowController {
 
         // check if dates are entered
         if (checkInDate == null || checkOutDate == null) {
-            displayErrorBox(ERROR, "Date Error", "Please select check-in and check-out dates.");
+            displayErrorBox(AlertType.ERROR, "Date Error", "Please select check-in and check-out dates.");
             return;
         }
 
         // check if number of guests is empty
         if (numOfGuestsText == null || numOfGuestsText.trim().isEmpty()) {
-            displayErrorBox(ERROR, "Guest Error", "Please enter the number of guests.");
+            displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter the number of guests.");
             return;
         }
 
         // check if number of guests input is a number
         if (!numOfGuestsText.matches("\\d+")) {
-            displayErrorBox(ERROR, "Guest Error", "Please enter a valid number of guests.");
+            displayErrorBox(AlertType.ERROR, "Guest Error", "Please enter a valid number of guests.");
             return;
         }
 
@@ -105,7 +137,7 @@ public class MainWindowController {
         int numGuests = Integer.parseInt(numOfGuestsText);
 
         if (checkInDate.isAfter(checkOutDate)) {
-            displayErrorBox(ERROR, "Date Error", "Check-in date cannot be after check-out date.");
+            displayErrorBox(AlertType.ERROR, "Date Error", "Check-in date cannot be after check-out date.");
             return;
         }
 
@@ -124,9 +156,9 @@ public class MainWindowController {
         boolean isAvailable = newReservation.searchAvailability(reservations);
 
         if (isAvailable) {
-            displayErrorBox(INFORMATION, "Reservation Successful", "The room is available for the selected dates.");
+            displayErrorBox(AlertType.INFORMATION, "Reservation Successful", "The room is available for the selected dates.");
         } else {
-            displayErrorBox(ERROR, "No Rooms Available", "No rooms are available for the selected dates.");
+            displayErrorBox(AlertType.ERROR, "No Rooms Available", "No rooms are available for the selected dates.");
             return;
         }
 
@@ -145,31 +177,15 @@ public class MainWindowController {
 
     }
 
-    // loads new scene/window, to search existing reservation
-    @FXML
-    protected void goSearchReservation(ActionEvent actionEvent) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-reservation-window.fxml"));
-        Parent root = fxmlLoader.load();
-        Stage newStage = new Stage();
-        newStage.setTitle("Hotel California");
-        newStage.setScene(new Scene(root));
-        newStage.show();
-        // closes main window when button is clicked
-        Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-        currentStage.close();
+    /**
+     * modifyReservation
+     * Loads a new scene/window to search for an existing reservation and modify it.
+     *
+     * @param actionEvent The event triggered by the user's action, such as clicking a button.
+     * @throws Exception If there is an issue loading the FXML file or setting up the new stage.
+     */
 
-
-        // to do
-        // read file - alert window for no rooms
-        // read file - new scene for available rooms
-
-        // if room is available -> next window
-        // if room is NOT available -> another alert box
-
-    }
-
-
-    // action button loads new scene to search and modify for an existing reservation
+    // loads new scene/window to search for an existing reservation
     @FXML
     protected void modifyReservation(ActionEvent actionEvent) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("search-to-modify-window.fxml"));
@@ -184,14 +200,25 @@ public class MainWindowController {
         currentStage.close();
 
     }
+
     //--------------------------------------------------------------------------------------------------
+
+    /**
+     * cancelReservation
+     * Handles the action when the Cancel Reservation button is clicked.
+     * It opens the cancellation window where the user can cancel a reservation.
+     *
+     * @param actionEvent the ActionEvent triggered by the button click
+     * @throws Exception If there is an issue loading the FXML file or setting up the new stage.
+     */
+
     @FXML
     protected void cancelReservation(ActionEvent actionEvent) throws Exception {
         Stage stage = new Stage();
         stage.setTitle("Hotel California");
         Parent root;
-        ((Node)(actionEvent.getSource())).getScene().getWindow().hide();
-        if (actionEvent.getSource() == cancelResButton){
+        ((Node) (actionEvent.getSource())).getScene().getWindow().hide();
+        if (actionEvent.getSource() == cancelResButton) {
             root = FXMLLoader.load(getClass().getResource("cancel-window.fxml"));
             stage.setScene(new Scene(root));
             stage.initModality(Modality.APPLICATION_MODAL);
@@ -200,16 +227,26 @@ public class MainWindowController {
         }
     }
 
-
     //---------------------------------------------------------------------------------------------
+
+    /**
+     * managerLogin
+     * Handles the manager login process, validating the user ID and password.
+     * If the credentials are correct, it loads the manager window.
+     *
+     * @param actionEvent The ActionEvent triggered by the button click.
+     * @throws Exception If there is an issue loading the FXML file or setting up the new stage.
+     *
+     */
+
     //Manager Login Section
     @FXML
     protected void managerLogin(ActionEvent actionEvent) throws Exception {
         // Prompt for User ID
         TextInputDialog userIDDialog = new TextInputDialog();
         userIDDialog.setTitle("Manager Login");
-        userIDDialog.setHeaderText("Please enter your User ID:");//prompts user to input user id
-        userIDDialog.setContentText("User ID:");//prompts user to input user id
+        userIDDialog.setHeaderText("Please enter your User ID:");
+        userIDDialog.setContentText("User ID:");
 
         String userID = userIDDialog.showAndWait().orElse("");
 
@@ -228,7 +265,7 @@ public class MainWindowController {
         // Prompts user to input password
         TextInputDialog passwordDialog = new TextInputDialog();
         passwordDialog.setTitle("Manager Login");
-        passwordDialog.setHeaderText("Please enter your Password:");//prompts user to input password
+        passwordDialog.setHeaderText("Please enter your Password:");
         passwordDialog.setContentText("Password:");
 
         String password = passwordDialog.showAndWait().orElse("");
