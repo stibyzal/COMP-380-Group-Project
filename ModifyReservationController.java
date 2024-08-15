@@ -9,6 +9,15 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+/**
+ * ModifyReservationController
+ * allows the user to modify an existing hotel reservation by updating details such as
+ * check-in/check-out dates, number of guests, room type, and payment information. It also handles the
+ * visibility of address fields if the user needs to enter a new address.
+ *
+ * @author Kristina Dela Merced
+ * @version 1.0
+ */
 public class ModifyReservationController {
 
     @FXML
@@ -69,12 +78,29 @@ public class ModifyReservationController {
     @FXML
     private TextField countryField;
 
+    /**
+     * This method is called when the scene is first loaded. It populates the room type ComboBox with
+     * available room types and ensures that the address and payment fields are hidden by default.
+     */
+
     @FXML // methods calls javafx to load roomtype/toggles visibility when scene is loaded
     public void initialize() {
         roomTypeComboBox.getItems().addAll(roomChoice.getRoomTypesWithImages());
         toggleAddressFields(false); // Initialize address fields to be hidden
         togglePaymentFields(false); // Initialize payment fields to be hidden
     }
+
+    /**
+     * getReservationDetails method
+     * This method takes the reservation details, reservation number, and total price as inputs,
+     * and fills the corresponding fields in the form with these details. It is used to pre-fill
+     * the form with the user's current reservation information before any modifications are made.
+     *
+     * @param reservationDetails A string containing the reservation details.
+     * @param reservationNum The reservation number of the booking.
+     * @param totalPrice The total price already paid for the reservation.
+     * void This method does not return any value.
+     */
 
     // get reservation details and populate fields with current details
     public void getReservationDetails(String reservationDetails, String reservationNum, double totalPrice) {
@@ -132,6 +158,13 @@ public class ModifyReservationController {
         }
     }
 
+    /**
+     * Checks the availability of the selected room based on the new input details.
+     * - If the room is available, calculates the new total price based on the selected room type and dates.
+     * computes the difference between the original total price and the new total price to determine the amount owed.
+     * it updates the UI to reflect the room availability and amount owed.
+     */
+
     // check room availability after action
     @FXML
     protected void checkAvailability() {
@@ -178,10 +211,22 @@ public class ModifyReservationController {
         }
     }
 
+    /**
+     * Toggles the visibility of the address input fields if the user has a new address.
+     * is called when the user selects or deselects the "New Address" checkbox.
+     */
+
     @FXML // action toggle, if address is new
     protected void toggleNewAddressField() {
         toggleAddressFields(newAddressCheckBox.isSelected());
     }
+
+    /**
+     * saveNewDetails method
+     * collects the new reservation details entered by the user, validates the input, and
+     * updates the relevant files with the new information.
+     *  */
+
 
     @FXML // action save button, saves new details
     protected void saveNewDetails() {
@@ -234,6 +279,13 @@ public class ModifyReservationController {
         displayAlert("HOTEL CALIFORNIA", "Reservation details updated successfully!");
     }
 
+    /**
+     * Displays an alert message to inform the user of errors or successful operations.
+     *
+     * @param title The title of the alert dialog.
+     * @param message The message content to be displayed in the alert.
+     */
+
     // alert dialog box display
     private void displayAlert(String title, String message) {
         Alert alert = new Alert(AlertType.INFORMATION);
@@ -243,8 +295,17 @@ public class ModifyReservationController {
         alert.showAndWait();
     }
 
+
+    /**
+     * This method is used to show or hide the address input fields based on whether the user
+     * indicates that they have a new address.
+     *
+     * @param show A boolean value indicating whether to show (true) or hide (false) the address fields.
+     */
+
     // to display address fields if box is checked/true
     private void toggleAddressFields(boolean show) {
+
         streetAddressLabel.setVisible(show);
         streetAddressField.setVisible(show);
         cityLabel.setVisible(show);
@@ -256,6 +317,13 @@ public class ModifyReservationController {
         countryLabel.setVisible(show);
         countryField.setVisible(show);
     }
+
+    /**
+     * This method is used to show or hide the payment input fields when necessary, such as when
+     * the user needs to enter new payment details after modifying their reservation.
+     *
+     * @param show A boolean value indicating whether to show (true) or hide (false) the payment fields.
+     */
 
     // to display payment fields when action button clicked
     private void togglePaymentFields(boolean show) {
