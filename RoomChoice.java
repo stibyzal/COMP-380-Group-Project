@@ -1,4 +1,4 @@
-package com.example.projcomp380;
+package com.example.demo6;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -7,31 +7,48 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * The RoomChoice class allows guests to choose a room type from a predefined list.
+ * It provides methods to retrieve room types, prices, and image paths, as well as
+ * to save the guest's room choice to a file.
+ */
 public class RoomChoice {
 
     private String[] roomTypes = {"single room", "twin room", "suite", "executive room"};
-    private int[] availableRooms = {10, 10, 10, 10}; // just a test
-    private double[] roomPrices = {100.00, 200.00, 250.00, 450.00}; // prices for each room
+    private int[] availableRooms = {10, 10, 10, 10}; // Number of available rooms for each type
+    private double[] roomPrices = {100.00, 200.00, 250.00, 450.00}; // Prices for each room type
     private String room;
     private String choice;
 
     private Map<String, String> roomTypesWithImages;
 
+    /**
+     * Constructs a RoomChoice object and initializes the room types with associated images.
+     * Uses a LinkedHashMap to maintain the order of room types.
+     */
     public RoomChoice() {
-        // used LinkedHashMap, i was having troubles with the order of rooms with regular hashmap
         roomTypesWithImages = new LinkedHashMap<>();
-        roomTypesWithImages.put("single room", "/com/example/projcomp380/singleroom.jpg");
-        roomTypesWithImages.put("twin room", "/com/example/projcomp380/twinroom.jpg");
-        roomTypesWithImages.put("suite", "/com/example/projcomp380/suite.jpg");
-        roomTypesWithImages.put("executive room", "/com/example/projcomp380/executiveroom.jpg");
+        roomTypesWithImages.put("single room", "/com/example/demo6/singleroom.jpg");
+        roomTypesWithImages.put("twin room", "/com/example/demo6/twinroom.jpg");
+        roomTypesWithImages.put("suite", "/com/example/demo6/suite.jpg");
+        roomTypesWithImages.put("executive room", "/com/example/demo6/executiveroom.jpg");
     }
 
-    // method returns an array of room types from the roomTypesWithImages map
+    /**
+     * Returns an array of room types from the roomTypesWithImages map.
+     *
+     * @return An array of room types.
+     */
     public String[] getRoomTypesWithImages() {
         return roomTypesWithImages.keySet().toArray(new String[0]);
     }
 
-    // method to get the price of a room
+    /**
+     * Returns the price of the specified room type.
+     *
+     * @param roomType The type of room for which to get the price.
+     * @return The price of the room type, or 0.0 if the room type is not found.
+     */
     public double getRoomPrice(String roomType) {
         for (int i = 0; i < roomTypes.length; i++) {
             if (roomTypes[i].equals(roomType)) {
@@ -41,32 +58,58 @@ public class RoomChoice {
         return 0.0;
     }
 
-    // method to get images of room per room type
+    /**
+     * Returns the image path for the specified room type.
+     *
+     * @param roomType The type of room for which to get the image path.
+     * @return The image path for the room type, or a placeholder image path if the room type is not found.
+     */
     public String getRoomImagePath(String roomType) {
         return roomTypesWithImages.getOrDefault(roomType, "/com/example/projcomp380/placeholder.jpg");
     }
 
-    // Set Method
+    /**
+     * Sets the selected room type.
+     *
+     * @param room The room type to set.
+     */
     public void setRoom(String room) {
         this.room = room;
     }
 
-    // Get Method
+    /**
+     * Returns the selected room type.
+     *
+     * @return The selected room type.
+     */
     public String getRoom() {
         return this.room;
     }
 
-    // Get Method
+    /**
+     * Returns an array of all available room types.
+     *
+     * @return An array of room types.
+     */
     public String[] getRoomTypes() {
         return this.roomTypes;
     }
 
-    // Get method
+    /**
+     * Returns the guest's choice of room type.
+     *
+     * @return The selected room type.
+     */
     public String getChoice() {
         return this.choice;
     }
 
-    // Get method available rooms - test
+    /**
+     * Returns the number of available rooms for the specified room type.
+     *
+     * @param roomType The type of room for which to get the availability.
+     * @return The number of available rooms, or 0 if the room type is not found.
+     */
     public int getAvailableRooms(String roomType) {
         for (int i = 0; i < roomTypes.length; i++) {
             if (roomTypes[i].equals(roomType)) {
@@ -76,7 +119,13 @@ public class RoomChoice {
         return 0;
     }
 
-    // method to save customer room choice with res. #
+    /**
+     * Saves the guest's room choice and confirmation number to a specified file.
+     * The room choice is appended to the file as a new line.
+     *
+     * @param fileName           The name of the file to save the room choice to.
+     * @param confirmationNumber The confirmation number associated with the reservation.
+     */
     public void saveRoomChoiceToFile(String fileName, String confirmationNumber) {
         try (PrintWriter writer = new PrintWriter(new FileWriter(fileName, true))) {
             writer.println(confirmationNumber + "," + this.room);
@@ -85,8 +134,10 @@ public class RoomChoice {
         }
     }
 
-    // Other method
-    // Method for getting the room choice from the guest
+    /**
+     * Prompts the guest to choose a room type from the available options.
+     * The guest's choice is stored in the choice field.
+     */
     public void roomChoice() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Please choose the room type: ");
@@ -96,7 +147,7 @@ public class RoomChoice {
         System.out.print("Enter the corresponding room type number: ");
         int select = scanner.nextInt();
 
-        // if selection is valid
+        // Validate selection
         if (select >= 0 && select < this.roomTypes.length) {
             this.choice = this.roomTypes[select];
         } else {
@@ -104,7 +155,11 @@ public class RoomChoice {
         }
     }
 
-    // Add getter for roomType
+    /**
+     * Returns the type of room that has been set.
+     *
+     * @return The type of room set in this instance.
+     */
     public String getRoomType() {
         return this.room;
     }

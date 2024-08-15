@@ -1,24 +1,49 @@
 package com.example.demo6;
 
+import com.example.demo6.Reservation;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.WeekFields;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
+/**
+ * The ManagerReport class is responsible for generating weekly reports
+ * for hotel reservations, including revenue, guests, and rooms booked.
+ * It reads data from reservation and payment files and allows the user
+ * to generate reports for a specified date and the previous week.
+ */
 public class ManagerReport {
     private List<Reservation> reservations;
     private List<Double> payments;
 
+    /**
+     * Constructs a ManagerReport instance, reading reservations and payments
+     * from the specified files.
+     *
+     * @param reservationFileName The name of the file containing reservation data.
+     * @param paymentFileName     The name of the file containing payment data.
+     */
     public ManagerReport(String reservationFileName, String paymentFileName) {
         this.reservations = new ArrayList<>();
         this.payments = new ArrayList<>();
         readReservationsAndPaymentsFromFile(reservationFileName, paymentFileName);
     }
 
-    private void readReservationsAndPaymentsFromFile(String reservationFileName, String paymentFileName) {//reads the reservation information from txt files
+    /**
+     * Reads reservations and payments data from the specified files and
+     * stores them in the respective lists.
+     *
+     * @param reservationFileName The name of the file containing reservation data.
+     * @param paymentFileName     The name of the file containing payment data.
+     */
+    private void readReservationsAndPaymentsFromFile(String reservationFileName, String paymentFileName) {
         try (BufferedReader reservationReader = new BufferedReader(new FileReader(reservationFileName));
              BufferedReader paymentReader = new BufferedReader(new FileReader(paymentFileName))) {
             String reservationLine, paymentLine;
@@ -43,7 +68,13 @@ public class ManagerReport {
         }
     }
 
-    public double getRevenue(LocalDate date) {//method to get the revenue for the Week of date
+    /**
+     * Calculates the total revenue for a given week based on the specified date.
+     *
+     * @param date The date within the week for which to calculate the revenue.
+     * @return The total revenue for the specified week.
+     */
+    public double getRevenue(LocalDate date) {
         double weeklyTotalPrice = 0.0;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
 
@@ -64,7 +95,13 @@ public class ManagerReport {
         return weeklyTotalPrice;
     }
 
-    public int getGuests(LocalDate date) {//method to get the amount of guests for the inputted date
+    /**
+     * Calculates the total number of guests for a given week based on the specified date.
+     *
+     * @param date The date within the week for which to calculate the number of guests.
+     * @return The total number of guests for the specified week.
+     */
+    public int getGuests(LocalDate date) {
         int weeklyGuests = 0;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
 
@@ -82,7 +119,13 @@ public class ManagerReport {
         return weeklyGuests;
     }
 
-    public int getRoomsBooked(LocalDate date) {//method to get the amount of rooms booked
+    /**
+     * Calculates the total number of rooms booked for a given week based on the specified date.
+     *
+     * @param date The date within the week for which to calculate the number of rooms booked.
+     * @return The total number of rooms booked for the specified week.
+     */
+    public int getRoomsBooked(LocalDate date) {
         int weeklyRoomsBooked = 0;
         WeekFields weekFields = WeekFields.of(Locale.getDefault());
 
@@ -100,7 +143,14 @@ public class ManagerReport {
         return weeklyRoomsBooked;
     }
 
-    public String getWeeklyData(LocalDate date) {//gets weekly data
+    /**
+     * Generates a summary of data for a given week, including revenue,
+     * guests, and rooms booked.
+     *
+     * @param date The date within the week for which to generate the data.
+     * @return A string containing the summary of the weekly data.
+     */
+    public String getWeeklyData(LocalDate date) {
         StringBuilder weeklyData = new StringBuilder();
         double weeklyTotalPrice = getRevenue(date);
         int weeklyGuests = getGuests(date);
@@ -118,6 +168,10 @@ public class ManagerReport {
         return weeklyData.toString();
     }
 
+    /**
+     * Prompts the user for a date and generates a report for the specified week
+     * as well as the previous week. Outputs the results to the console.
+     */
     public void askForDateAndGenerateReport() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("Enter the date (yyyy-MM-dd) for which you want to generate the report: ");
@@ -140,9 +194,14 @@ public class ManagerReport {
         }
     }
 
+    /**
+     * The main method to run the ManagerReport program, which reads data
+     * from the reservation and payment files and generates reports based on user input.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         ManagerReport report = new ManagerReport("reservation.txt", "payment.txt");
         report.askForDateAndGenerateReport();
     }
-
 }

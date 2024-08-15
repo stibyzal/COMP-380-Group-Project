@@ -8,6 +8,11 @@ import javafx.scene.control.TextArea;
 
 import java.time.LocalDate;
 
+/**
+ * Controller class for the Manager Window in the hotel management application.
+ * This class handles the generation of weekly reports and populates various
+ * bar charts with data related to revenue, guests, and rooms booked.
+ */
 public class ManagerWindowController {
 
     @FXML
@@ -28,7 +33,11 @@ public class ManagerWindowController {
     @FXML
     private BarChart<String, Number> roomsBookedChart;
 
-    // Method to generate the report for given date
+    /**
+     * Handles the generation of the report for the date selected in the DatePicker.
+     * This method retrieves the data for the current and previous weeks and populates
+     * the TextAreas and BarCharts accordingly.
+     */
     @FXML
     private void handleGenerateReport() {
         LocalDate selectedDate = datePicker.getValue();
@@ -39,11 +48,11 @@ public class ManagerWindowController {
             String currentWeekData = report.getWeeklyData(selectedDate);
             String previousWeekData = report.getWeeklyData(selectedDate.minusWeeks(1));
 
-            // current on left, previous on right
+            // Populate the TextAreas with the current and previous week data
             currentWeekTextArea.setText(currentWeekData);
             previousWeekTextArea.setText(previousWeekData);
 
-            // puts info into the bar chart
+            // Populate the BarCharts with the relevant data
             populateRevenueChart(report, selectedDate);
             populateGuestsChart(report, selectedDate);
             populateRoomsBookedChart(report, selectedDate);
@@ -53,16 +62,21 @@ public class ManagerWindowController {
         }
     }
 
+    /**
+     * Populates the revenue BarChart with data for the current and previous weeks.
+     *
+     * @param report       The ManagerReport instance used to retrieve data.
+     * @param selectedDate The date selected by the user, which determines the week range.
+     */
     private void populateRevenueChart(ManagerReport report, LocalDate selectedDate) {
         // Clear existing data
         revenueChart.getData().clear();
 
-        // current week bar
+        // Create series for current and previous week revenue
         XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();
         currentWeekSeries.setName("Current Week");
         currentWeekSeries.getData().add(new XYChart.Data<>("Revenue", report.getRevenue(selectedDate)));
 
-        // Creates bar for prevous week
         XYChart.Series<String, Number> previousWeekSeries = new XYChart.Series<>();
         previousWeekSeries.setName("Previous Week");
         previousWeekSeries.getData().add(new XYChart.Data<>("Revenue", report.getRevenue(selectedDate.minusWeeks(1))));
@@ -70,39 +84,57 @@ public class ManagerWindowController {
         // Add the series to the chart
         revenueChart.getData().addAll(currentWeekSeries, previousWeekSeries);
 
-        // Colors of Bars
-        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {//fills the color of bar chart to orange
+        // Set bar colors
+        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {
             data.getNode().setStyle("-fx-bar-fill: orange;");
         }
-        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {//fills the color of bar chart to yello
+        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {
             data.getNode().setStyle("-fx-bar-fill: yellow;");
         }
     }
 
-    private void populateGuestsChart(ManagerReport report, LocalDate selectedDate) {//populates the guests onto the bar chart
+    /**
+     * Populates the guests BarChart with data for the current and previous weeks.
+     *
+     * @param report       The ManagerReport instance used to retrieve data.
+     * @param selectedDate The date selected by the user, which determines the week range.
+     */
+    private void populateGuestsChart(ManagerReport report, LocalDate selectedDate) {
+        // Clear existing data
         guestsChart.getData().clear();
 
-        XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();//current week chart
+        // Create series for current and previous week guests
+        XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();
         currentWeekSeries.setName("Current Week");
         currentWeekSeries.getData().add(new XYChart.Data<>("Guests", report.getGuests(selectedDate)));
 
-        XYChart.Series<String, Number> previousWeekSeries = new XYChart.Series<>();//previous week chart
+        XYChart.Series<String, Number> previousWeekSeries = new XYChart.Series<>();
         previousWeekSeries.setName("Previous Week");
         previousWeekSeries.getData().add(new XYChart.Data<>("Guests", report.getGuests(selectedDate.minusWeeks(1))));
 
+        // Add the series to the chart
         guestsChart.getData().addAll(currentWeekSeries, previousWeekSeries);
 
-        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {//fills the color of bar chart to orange
+        // Set bar colors
+        for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {
             data.getNode().setStyle("-fx-bar-fill: orange;");
         }
-        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {//fills color of bar chart to yello
+        for (XYChart.Data<String, Number> data : previousWeekSeries.getData()) {
             data.getNode().setStyle("-fx-bar-fill: yellow;");
         }
     }
 
-    private void populateRoomsBookedChart(ManagerReport report, LocalDate selectedDate) {//populates the rooms booked onto the bar chart
+    /**
+     * Populates the rooms booked BarChart with data for the current and previous weeks.
+     *
+     * @param report       The ManagerReport instance used to retrieve data.
+     * @param selectedDate The date selected by the user, which determines the week range.
+     */
+    private void populateRoomsBookedChart(ManagerReport report, LocalDate selectedDate) {
+        // Clear existing data
         roomsBookedChart.getData().clear();
 
+        // Create series for current and previous week rooms booked
         XYChart.Series<String, Number> currentWeekSeries = new XYChart.Series<>();
         currentWeekSeries.setName("Current Week");
         currentWeekSeries.getData().add(new XYChart.Data<>("Rooms Booked", report.getRoomsBooked(selectedDate)));
@@ -111,8 +143,10 @@ public class ManagerWindowController {
         previousWeekSeries.setName("Previous Week");
         previousWeekSeries.getData().add(new XYChart.Data<>("Rooms Booked", report.getRoomsBooked(selectedDate.minusWeeks(1))));
 
+        // Add the series to the chart
         roomsBookedChart.getData().addAll(currentWeekSeries, previousWeekSeries);
 
+        // Set bar colors
         for (XYChart.Data<String, Number> data : currentWeekSeries.getData()) {
             data.getNode().setStyle("-fx-bar-fill: orange;");
         }
