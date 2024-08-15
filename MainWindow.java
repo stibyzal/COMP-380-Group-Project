@@ -1,5 +1,4 @@
-package com.example.projcomp380;
-
+package com.example.hotelcalifornia;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,10 +6,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-
+/**
+ * Main window starts the project
+ * @author Kristina Patrisha Dela Merced
+ */
 public class MainWindow extends Application {
 
-    // Main Window
+    /**
+     * Starts the project
+     * @param stage java stage library
+     * @throws IOException prompt user with an error message
+     * in case of I/O error
+     */
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("main-window.fxml"));
@@ -23,6 +30,17 @@ public class MainWindow extends Application {
 
 
     }
+
+
+    /**
+     *  launching the main window
+     * @param args name of the array variable
+     */
+    public static void main(String[] args) {
+        launch();
+    }
+}
+
 
 
 
