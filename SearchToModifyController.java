@@ -15,6 +15,17 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * SearchToModifyController
+ * It allows the user to search for an existing reservation using a reservation number.
+ *
+ * Algorithms:
+ * - File Searching: Loops through multiple files to find matching reservation numbers and retrieves associated details.
+ *
+ *  * @author Kristina Dela Merced
+ *  * @version 1.0
+ */
+
 public class SearchToModifyController {
 
     @FXML
@@ -28,6 +39,22 @@ public class SearchToModifyController {
 
     @FXML
     private Button reservationSearchBtn; // search button
+
+    /**
+     * Searches for the reservation details based on the reservation number entered by the user.
+     * Searches through multiple files (e.g., customers, reservations, room choices, payments, addresses)
+     * to find matching reservation numbers. Accumulates and stores the details associated with the reservation in StringBuilders.
+     * If a matching reservation is found, it loads the modification window with the retrieved details.
+     *
+     * Algorithm:
+     * this class contains a file search algorithm
+     * a loop to search through multiple text files for a specific reservation number.
+     * This involves: Iterating through files, reading lines and checking if the reservation number matches.
+     * Accumulating details in the corresponding StringBuilder when a match is found.
+     *
+     * @throws IOException If an error occurs while reading the files.
+     */
+
 
     // method to search reservations based on reservation num
     @FXML
@@ -109,6 +136,15 @@ public class SearchToModifyController {
         }
     }
 
+    /**
+     * Formats a line from the file based on the file type.
+     * processes a line from one of the reservation related files and formats it for display.
+     *
+     * @param fileName The name of the file being processed.
+     * @param line The line read from the file.
+     * @return A formatted string containing the relevant details for the reservation.
+     */
+
     // method to format line based on file type
     private String formatLine(String fileName, String line) {
         // split line using comma
@@ -129,6 +165,14 @@ public class SearchToModifyController {
         }
     }
 
+    /**
+     * Displays an alert message with the given title and content.
+     * This method is used to inform the user about errors, such as missing input or failed searches
+     *
+     * @param title The title of the alert dialog.
+     * @param message The content message to be displayed in the alert dialog.
+     */
+
     // method display alert
     private void displayAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -137,6 +181,17 @@ public class SearchToModifyController {
         alert.setContentText(message);
         alert.showAndWait();
     }
+
+
+    /**
+     * Loads the modification window with the retrieved reservation details.
+     * is called when a reservation is found and successfully loaded.
+     *
+     * @param reservationDetails The formatted reservation details to be displayed in the modification window.
+     * @param reservationNum The reservation number of the reservation being modified.
+     * @param totalPrice The total price associated with the reservation.
+     * @throws IOException If an error occurs while loading the modification window.
+     */
 
     // method to open new window for modifying reservation
     private void openModifyReservationWindow(String reservationDetails, String reservationNum, double totalPrice) {
@@ -154,7 +209,7 @@ public class SearchToModifyController {
 
             Stage stage = new Stage();
             stage.setTitle("HOTEL CALIFORNIA");
-            Scene scene = new Scene(pane, 700, 550);
+            Scene scene = new Scene(pane, 680, 600);
             stage.setScene(scene);
             stage.initModality(Modality.APPLICATION_MODAL); // Block interaction with other windows
             stage.showAndWait();
