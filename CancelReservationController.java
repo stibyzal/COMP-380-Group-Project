@@ -12,19 +12,37 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * Cancel Reservation Controller
+ * Aug 7, 2024
+ * @author B. Ascorra
+ * The controller class that sets up the GUI for the cancel reservation window.
+ */
 public class CancelReservationController {
-
+    /**
+     * Button to go to the final window where the reservation is cancelled and a refund is issued.
+     */
     @FXML
     private Button continueCancelButton;
 
+    /**
+     * Text field in the window where a user inputs their reservation number.
+     */
     @FXML
     private TextField enterResNum;
 
+    /**
+     * The refund amount given after a reservation is cancelled.
+     */
     public String refundAmt;
 
-
+    /**
+     * The window that takes the user's reservation number, so they can cancel their reservation.
+     * Then creates a final window to show the user a confirmation that their reservation was cancelled.
+     * @param actionEvent the button click
+     */
     @FXML
-    protected void continueToCancellation(ActionEvent actionEvent) throws Exception {
+    protected void continueToCancellation(ActionEvent actionEvent) {
         //gets the reservation number that the user types into the text box, stores it into the string
         String userReservationNum = enterResNum.getText();
 
