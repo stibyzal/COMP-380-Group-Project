@@ -22,6 +22,17 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * SecondWindowController
+ * manages the UI for the second window in a hotel reservation system.
+ * It displays available rooms based on user-selected check-in and check-out dates and the number of guests.
+ * The controller handles room detail display, user interactions, and transitions to booking windows.
+ *
+ * @author Kristina Dela Merced
+ * @version 1.0
+ *
+ */
+
 public class SecondWindowController {
 
     @FXML
@@ -42,6 +53,17 @@ public class SecondWindowController {
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private int numGuests;
+
+    /**
+     * Displays the selected dates and number of guests in the window.
+     * - this method is called from the first window to pass the user-selected check-in and check-out dates,
+     * and the number of guests, to the second window. It formats the dates and updates the GUI
+     * to reflect the user's choices.
+     *
+     * @param checkInDate the LocalDate representing the user's selected check-in date.
+     * @param checkOutDate the LocalDate representing the user's selected check-out date.
+     * @param numGuests the number of guests provided by the user.
+     */
 
     // Method to get datepicker input from window 1
     public void displayDates(LocalDate checkInDate, LocalDate checkOutDate, int numGuests) {
@@ -66,6 +88,20 @@ public class SecondWindowController {
             addRoomInfo(roomType, "description of " + roomType, photoPath, price);
         }
     }
+
+    /**
+     * Loads the available rooms and their details into the GUI.
+     *
+     * This method interacts with the RoomChoice class to retrieve details of available rooms
+     * based on the check-in and check-out dates, and the number of guests. It dynamically
+     * creates GUI elements to display each room's information, including room type, description,
+     * price, and an image.
+     *
+     * @param roomType the type of the room (single room, twin, suite, executive)
+     * @param roomDescription a brief description of the room
+     * @param price the price per night for the room.
+     * @param photoPath the file path to the room's photo, which will be displayed in the UI.
+     */
 
     // method to add each room type into a vbox
     private void addRoomInfo(String roomType, String roomDescription, String photoPath, double price) {
@@ -112,6 +148,7 @@ public class SecondWindowController {
             // get current stage and close it
             Stage currentStage = (Stage) bookNowButton.getScene().getWindow();
             currentStage.close();
+
         });
 
         // horizontal box for book now button
@@ -124,6 +161,19 @@ public class SecondWindowController {
         displayRoomBox.getChildren().add(roomInfo);
     }
 
+    /**
+     * Opens a new window for booking the selected room.
+     *
+     * This method is triggered when the user clicks the "Book Now" button. It loads the third window's
+     * FXML, passes the reservation details (such as room type, description, price, and image) to the
+     * ThirdWindowController, and displays the new window where the user can finalize the booking.
+     *
+     * @param roomType the type of the selected room.
+     * @param roomDescription a brief description of the selected room.
+     * @param price the price per night for the selected room.
+     * @param image an image of the selected room.
+     */
+
     // opens up to the next scene
     private void showThirdWindow(String roomType, String roomDescription, double price, Image image) {
 
@@ -135,10 +185,13 @@ public class SecondWindowController {
             ThirdWindowController controller = loader.getController();
             controller.getReservationDetails(checkInDate, checkOutDate, numGuests, roomType, price, roomDescription, image);
 
+
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
             stage.setTitle("Book Room");
             stage.show();
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
